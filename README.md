@@ -48,7 +48,7 @@ cantrip/
 
 ### AI Agent (Python)
 - **Framework**: LangGraph + LangChain
-- **LLM**: OpenAI GPT-4
+- **LLM**: Gemini (GCP)
 - **API**: FastAPI
 - **Evaluation**: Phoenix
 - **Dependencies**: See `langgraph_agent/requirements.txt`
