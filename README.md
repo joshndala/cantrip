@@ -1,23 +1,24 @@
 # CanTrip - AI-Powered Canadian Travel Planning Platform (In Development)
 
-CanTrip is a comprehensive travel planning platform that uses AI to generate personalized itineraries, packing lists, and travel recommendations for destinations across Canada. Built with Go (backend API) and Python (LangGraph agent), it provides intelligent travel planning based on mood, interests, budget, and Canadian destinations.
+CanTrip is a comprehensive travel planning platform that leverages **AI agents** to generate personalized itineraries, packing lists, and travel recommendations for destinations across Canada. Built with Go (backend API) and Python (LangGraph agent), it uses intelligent AI agents to provide sophisticated travel planning based on mood, interests, budget, and Canadian destinations.
 
 ## 🚀 Features
 
 ### Core Functionality
-- **Mood-based Exploration**: Get travel suggestions for Canadian destinations based on your mood and interests
-- **AI Itinerary Generation**: Create detailed day-by-day itineraries for Canadian cities using LangGraph
-- **Smart Packing Lists**: Generate personalized packing lists based on Canadian climate, destination, and activities
+- **AI Agent-Powered Exploration**: Get travel suggestions for Canadian destinations using intelligent AI agents that understand your mood and interests
+- **AI Agent Itinerary Generation**: Create detailed day-by-day itineraries for Canadian cities using advanced LangGraph AI agents
+- **AI Agent Packing Lists**: Generate personalized packing lists using AI agents that consider Canadian climate, destination, and activities
 - **Cultural Tips & Advice**: Access destination-specific cultural information and travel tips for Canadian destinations
 - **PDF Export**: Download itineraries and packing lists as beautiful PDFs
-- **Conversational AI**: Natural language chat interface for Canadian travel planning
+- **Conversational AI Agents**: Natural language chat interface powered by AI agents for Canadian travel planning
 
 ### Technical Features
-- **LangGraph Agent**: Advanced AI agent for intelligent travel planning
-- **Multi-API Integration**: Weather, events, attractions, and recommendations
-- **Caching Layer**: Optimized performance with intelligent caching
-- **Phoenix Evaluation**: Monitor and evaluate agent performance
-- **RESTful API**: Clean, documented API endpoints
+- **AI Agents with LangGraph**: Advanced AI agents for intelligent travel planning using LangGraph framework
+- **Multi-Agent Architecture**: Specialized AI agents for different travel planning tasks (exploration, itinerary, packing)
+- **Multi-API Integration**: AI agents integrate with weather, events, attractions, and recommendations APIs
+- **Caching Layer**: Optimized performance with intelligent caching for AI agent responses
+- **Phoenix Evaluation**: Monitor and evaluate AI agent performance and accuracy
+- **RESTful API**: Clean, documented API endpoints that interface with AI agents
 
 ## 🏗️ Architecture
 
@@ -46,11 +47,12 @@ cantrip/
 - **Language**: Go 1.25+
 - **Dependencies**: See `go.mod`
 
-### AI Agent (Python)
-- **Framework**: LangGraph + LangChain
-- **LLM**: Gemini (GCP)
-- **API**: FastAPI
-- **Evaluation**: Phoenix
+### AI Agents (Python)
+- **Framework**: LangGraph + LangChain for multi-agent orchestration
+- **LLM**: Gemini (GCP) powering intelligent AI agents
+- **API**: FastAPI for AI agent endpoints
+- **Evaluation**: Phoenix for AI agent performance monitoring
+- **Multi-Agent System**: Specialized agents for exploration, itinerary planning, and packing
 - **Dependencies**: See `langgraph_agent/requirements.txt`
 
 ### External APIs
@@ -130,12 +132,12 @@ go run main.go
 ```
 Server will start on `http://localhost:8080`
 
-### 2. Start the LangGraph Agent
+### 2. Start the AI Agents (LangGraph)
 ```bash
 cd backend/langgraph_agent
 python main.py
 ```
-Agent will start on `http://localhost:8001`
+AI agents will start on `http://localhost:8001`
 
 ### 3. Test the API
 
@@ -203,12 +205,12 @@ curl -X POST http://localhost:8080/api/v1/itinerary \
 - `GET /api/v1/pdf/download/:id` - Download PDF
 - `GET /api/v1/pdf/status/:id` - Check PDF status
 
-### LangGraph Agent Endpoints
+### AI Agents Endpoints
 
 - `GET /health` - Health check
-- `POST /generate-itinerary` - Generate itinerary via agent
-- `POST /explore-destination` - Explore destination via agent
-- `POST /generate-packing-list` - Generate packing list via agent
+- `POST /generate-itinerary` - Generate itinerary via AI agent
+- `POST /explore-destination` - Explore destination via AI agent
+- `POST /generate-packing-list` - Generate packing list via AI agent
 
 ## 🔧 Configuration
 
@@ -232,7 +234,7 @@ PORT=8080
 GIN_MODE=release
 ```
 
-#### LangGraph Agent
+#### AI Agents
 ```bash
 # OpenAI
 OPENAI_API_KEY=your_key
@@ -241,7 +243,7 @@ OPENAI_API_KEY=your_key
 PHOENIX_ENABLED=true
 PHOENIX_ENDPOINT=your_phoenix_endpoint
 
-# Agent
+# AI Agents
 AGENT_PORT=8001
 AGENT_HOST=0.0.0.0
 ```
@@ -254,7 +256,7 @@ cd backend
 go test ./...
 ```
 
-### Agent Tests
+### AI Agent Tests
 ```bash
 cd backend/langgraph_agent
 pytest tests/
@@ -271,7 +273,7 @@ curl -X POST http://localhost:8080/api/v1/explore \
 ## 📊 Monitoring & Evaluation
 
 ### Phoenix Evaluation
-The LangGraph agent includes Phoenix integration for performance monitoring:
+The AI agents include Phoenix integration for performance monitoring:
 
 ```bash
 # Enable evaluation
@@ -283,7 +285,7 @@ curl http://localhost:8001/evaluation/summary
 
 ### Logs
 - Backend logs: Standard Go logging
-- Agent logs: Structured logging with timestamps
+- AI Agent logs: Structured logging with timestamps
 - Evaluation logs: JSONL format in `phoenix_evaluations.jsonl`
 
 ## 🚀 Deployment
@@ -302,7 +304,7 @@ curl http://localhost:8001/evaluation/summary
 2. **Run containers**
    ```bash
    docker run -p 8080:8080 cantrip-backend
-   docker run -p 8001:8001 cantrip-agent
+   docker run -p 8001:8001 cantrip-ai-agents
    ```
 ```
 
