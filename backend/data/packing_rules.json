@@ -1,0 +1,356 @@
+{
+  "weather_rules": {
+    "hot": {
+      "temperature_range": [25, 50],
+      "clothing": [
+        "Lightweight t-shirts",
+        "Shorts",
+        "Sundresses",
+        "Sandals",
+        "Swimwear",
+        "Sun hat",
+        "Sunglasses",
+        "Light cotton clothing"
+      ],
+      "accessories": [
+        "Sunscreen (SPF 30+)",
+        "Aloe vera gel",
+        "Portable fan",
+        "Water bottle",
+        "Cooling towel"
+      ],
+      "footwear": [
+        "Sandals",
+        "Flip-flops",
+        "Breathable sneakers",
+        "Water shoes"
+      ]
+    },
+    "warm": {
+      "temperature_range": [15, 25],
+      "clothing": [
+        "T-shirts",
+        "Light pants",
+        "Light sweaters",
+        "Light jackets",
+        "Dresses",
+        "Light scarves"
+      ],
+      "accessories": [
+        "Sunscreen",
+        "Light umbrella",
+        "Water bottle",
+        "Light backpack"
+      ],
+      "footwear": [
+        "Comfortable sneakers",
+        "Loafers",
+        "Light boots",
+        "Sandals"
+      ]
+    },
+    "mild": {
+      "temperature_range": [5, 15],
+      "clothing": [
+        "Long-sleeve shirts",
+        "Jeans",
+        "Light sweaters",
+        "Light jackets",
+        "Scarves",
+        "Light gloves"
+      ],
+      "accessories": [
+        "Light umbrella",
+        "Water bottle",
+        "Light backpack",
+        "Light hat"
+      ],
+      "footwear": [
+        "Comfortable sneakers",
+        "Boots",
+        "Loafers"
+      ]
+    },
+    "cool": {
+      "temperature_range": [-5, 5],
+      "clothing": [
+        "Warm sweaters",
+        "Heavy jackets",
+        "Warm pants",
+        "Thermal underwear",
+        "Warm scarves",
+        "Warm gloves",
+        "Warm hat"
+      ],
+      "accessories": [
+        "Warm umbrella",
+        "Hand warmers",
+        "Warm backpack",
+        "Thermal water bottle"
+      ],
+      "footwear": [
+        "Warm boots",
+        "Warm socks",
+        "Waterproof shoes"
+      ]
+    },
+    "cold": {
+      "temperature_range": [-50, -5],
+      "clothing": [
+        "Heavy winter coat",
+        "Thermal underwear",
+        "Warm sweaters",
+        "Warm pants",
+        "Warm scarves",
+        "Warm gloves",
+        "Warm hat",
+        "Winter socks"
+      ],
+      "accessories": [
+        "Hand warmers",
+        "Face mask",
+        "Warm backpack",
+        "Thermal water bottle",
+        "Ice cleats"
+      ],
+      "footwear": [
+        "Heavy winter boots",
+        "Warm socks",
+        "Waterproof shoes"
+      ]
+    }
+  },
+  "activity_rules": {
+    "outdoor_adventure": {
+      "clothing": [
+        "Moisture-wicking shirts",
+        "Quick-dry pants",
+        "Hiking boots",
+        "Rain jacket",
+        "Base layers"
+      ],
+      "accessories": [
+        "Backpack",
+        "Water bottle",
+        "First aid kit",
+        "Map/compass",
+        "Headlamp",
+        "Multi-tool"
+      ],
+      "footwear": [
+        "Hiking boots",
+        "Trail running shoes",
+        "Water shoes"
+      ]
+    },
+    "beach": {
+      "clothing": [
+        "Swimwear",
+        "Cover-ups",
+        "Light dresses",
+        "Shorts",
+        "T-shirts"
+      ],
+      "accessories": [
+        "Beach towel",
+        "Beach umbrella",
+        "Sunscreen",
+        "Beach bag",
+        "Snorkel gear",
+        "Beach games"
+      ],
+      "footwear": [
+        "Flip-flops",
+        "Water shoes",
+        "Sandals"
+      ]
+    },
+    "city_exploration": {
+      "clothing": [
+        "Comfortable pants",
+        "T-shirts",
+        "Light sweaters",
+        "Comfortable dresses",
+        "Light jackets"
+      ],
+      "accessories": [
+        "Comfortable bag",
+        "Water bottle",
+        "Camera",
+        "Guidebook",
+        "Power bank"
+      ],
+      "footwear": [
+        "Comfortable walking shoes",
+        "Sneakers",
+        "Loafers"
+      ]
+    },
+    "business": {
+      "clothing": [
+        "Business suits",
+        "Dress shirts",
+        "Dress pants",
+        "Professional dresses",
+        "Blazers"
+      ],
+      "accessories": [
+        "Briefcase",
+        "Business cards",
+        "Laptop",
+        "Professional watch",
+        "Tie clips"
+      ],
+      "footwear": [
+        "Dress shoes",
+        "Professional heels",
+        "Loafers"
+      ]
+    },
+    "formal": {
+      "clothing": [
+        "Evening gowns",
+        "Tuxedos",
+        "Formal dresses",
+        "Dress shirts",
+        "Formal pants"
+      ],
+      "accessories": [
+        "Jewelry",
+        "Formal bag",
+        "Cufflinks",
+        "Tie",
+        "Pocket square"
+      ],
+      "footwear": [
+        "Formal heels",
+        "Dress shoes",
+        "Formal flats"
+      ]
+    }
+  },
+  "duration_rules": {
+    "weekend": {
+      "multiplier": 1.0,
+      "notes": "Pack light, focus on essentials"
+    },
+    "week": {
+      "multiplier": 1.5,
+      "notes": "Plan for laundry or pack extra items"
+    },
+    "two_weeks": {
+      "multiplier": 2.0,
+      "notes": "Consider laundry options, pack versatile items"
+    },
+    "month": {
+      "multiplier": 3.0,
+      "notes": "Plan for laundry, pack versatile items, consider buying some items locally"
+    }
+  },
+  "group_rules": {
+    "solo": {
+      "multiplier": 1.0,
+      "notes": "Pack everything you need"
+    },
+    "couple": {
+      "multiplier": 1.8,
+      "notes": "Can share some items, pack some duplicates"
+    },
+    "family": {
+      "multiplier": 2.5,
+      "notes": "Pack essentials for each person, share some items"
+    },
+    "group": {
+      "multiplier": 3.0,
+      "notes": "Coordinate packing, share common items"
+    }
+  },
+  "age_rules": {
+    "child": {
+      "additional_items": [
+        "Diapers/wipes",
+        "Baby food",
+        "Toys",
+        "Extra clothes",
+        "Baby carrier",
+        "Stroller"
+      ],
+      "notes": "Pack extra of everything, consider comfort and safety"
+    },
+    "adult": {
+      "additional_items": [
+        "Personal care items",
+        "Electronics",
+        "Documents"
+      ],
+      "notes": "Standard packing rules apply"
+    },
+    "senior": {
+      "additional_items": [
+        "Medications",
+        "Medical devices",
+        "Comfortable shoes",
+        "Reading glasses",
+        "Emergency contacts"
+      ],
+      "notes": "Focus on comfort and accessibility"
+    }
+  },
+  "special_needs": {
+    "accessibility": {
+      "additional_items": [
+        "Mobility aids",
+        "Accessibility tools",
+        "Comfortable seating",
+        "Easy-access clothing"
+      ]
+    },
+    "medical": {
+      "additional_items": [
+        "Medications",
+        "Medical devices",
+        "Medical documentation",
+        "Emergency contacts",
+        "First aid kit"
+      ]
+    },
+    "dietary": {
+      "additional_items": [
+        "Specialty foods",
+        "Supplements",
+        "Dietary documentation",
+        "Translation cards"
+      ]
+    }
+  },
+  "baggage_rules": {
+    "carry_on": {
+      "max_weight": 10,
+      "max_dimensions": "22x14x9",
+      "essentials": [
+        "Passport/ID",
+        "Medications",
+        "Electronics",
+        "Change of clothes",
+        "Toiletries"
+      ],
+      "notes": "Pack light, focus on essentials and valuables"
+    },
+    "checked": {
+      "max_weight": 23,
+      "max_dimensions": "62 linear inches",
+      "essentials": [
+        "Clothes",
+        "Shoes",
+        "Toiletries",
+        "Non-essential items"
+      ],
+      "notes": "Pack bulkier items, avoid valuables"
+    },
+    "both": {
+      "carry_on_weight": 10,
+      "checked_weight": 23,
+      "notes": "Distribute weight appropriately, keep essentials in carry-on"
+    }
+  }
+} 

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .trip-info {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-item h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .day {
+            margin: 30px 0;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .day-header {
+            background-color: #667eea;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .day-content {
+            padding: 20px;
+        }
+        
+        .activity {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            background-color: #f8f9fa;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .activity-time {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .activity-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .activity-details {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .meal {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff3cd;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .meal-type {
+            font-weight: 600;
+            color: #856404;
+        }
+        
+        .transport {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #d1ecf1;
+            border-radius: 5px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .transport-type {
+            font-weight: 600;
+            color: #0c5460;
+        }
+        
+        .summary {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #d4edda;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .summary h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        
+        .cost-breakdown {
+            margin: 20px 0;
+        }
+        
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .total-cost {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #667eea;
+            text-align: right;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #667eea;
+        }
+        
+        .notes {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .weather-info {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e2e3e5;
+            border-radius: 5px;
+        }
+        
+        .weather-item {
+            text-align: center;
+        }
+        
+        .weather-item h4 {
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .day {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{.Title}}</h1>
+            <div class="subtitle">{{.Subtitle}}</div>
+        </div>
+        
+        <div class="trip-info">
+            <div class="info-item">
+                <h3>Destination</h3>
+                <p>{{.Destination}}</p>
+            </div>
+            <div class="info-item">
+                <h3>Duration</h3>
+                <p>{{.Duration}} days</p>
+            </div>
+            <div class="info-item">
+                <h3>Start Date</h3>
+                <p>{{.StartDate}}</p>
+            </div>
+            <div class="info-item">
+                <h3>End Date</h3>
+                <p>{{.EndDate}}</p>
+            </div>
+        </div>
+        
+        {{if .Weather}}
+        <div class="weather-info">
+            <div class="weather-item">
+                <h4>Temperature</h4>
+                <p>{{.Weather.Temperature}}°C</p>
+            </div>
+            <div class="weather-item">
+                <h4>Condition</h4>
+                <p>{{.Weather.Condition}}</p>
+            </div>
+            <div class="weather-item">
+                <h4>Humidity</h4>
+                <p>{{.Weather.Humidity}}%</p>
+            </div>
+        </div>
+        {{end}}
+        
+        {{range .Days}}
+        <div class="day">
+            <div class="day-header">
+                Day {{.Day}} - {{.Date}}
+            </div>
+            <div class="day-content">
+                {{range .Activities}}
+                <div class="activity">
+                    <div class="activity-time">{{.StartTime}} - {{.EndTime}}</div>
+                    <div class="activity-title">{{.Name}}</div>
+                    <div class="activity-details">
+                        <strong>Location:</strong> {{.Location}}<br>
+                        <strong>Description:</strong> {{.Description}}<br>
+                        {{if .Cost}}<strong>Cost:</strong> ${{.Cost}}<br>{{end}}
+                        {{if .BookingURL}}<strong>Booking:</strong> <a href="{{.BookingURL}}">Book Now</a>{{end}}
+                    </div>
+                </div>
+                {{end}}
+                
+                {{range .Meals}}
+                <div class="meal">
+                    <div class="meal-type">{{.Type | title}}</div>
+                    <div><strong>{{.Name}}</strong> at {{.Location}}</div>
+                    <div>{{.Time}} - ${{.Cost}}</div>
+                    {{if .Cuisine}}<div>Cuisine: {{.Cuisine}}</div>{{end}}
+                </div>
+                {{end}}
+                
+                {{range .Transport}}
+                <div class="transport">
+                    <div class="transport-type">{{.Type | title}}</div>
+                    <div>{{.From}} → {{.To}}</div>
+                    <div>{{.StartTime}} - {{.EndTime}} ({{.Duration}} min)</div>
+                    {{if .Cost}}<div>Cost: ${{.Cost}}</div>{{end}}
+                </div>
+                {{end}}
+                
+                {{if .Notes}}
+                <div class="notes">
+                    <strong>Notes:</strong> {{.Notes}}
+                </div>
+                {{end}}
+            </div>
+        </div>
+        {{end}}
+        
+        <div class="summary">
+            <h3>Trip Summary</h3>
+            <p>{{.Summary}}</p>
+            
+            <div class="cost-breakdown">
+                <h4>Cost Breakdown:</h4>
+                {{range .CostBreakdown}}
+                <div class="cost-item">
+                    <span>{{.Category}}</span>
+                    <span>${{.Amount}}</span>
+                </div>
+                {{end}}
+                <div class="total-cost">
+                    Total: ${{.TotalCost}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Generated by CanTrip - Your AI Travel Assistant</p>
+            <p>Generated on {{.GeneratedAt}}</p>
+        </div>
+    </div>
+</body>
+</html> 
