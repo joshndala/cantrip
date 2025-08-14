@@ -1,4 +1,4 @@
-# CanTrip - AI-Powered Canadian Travel Planning Platform
+# CanTrip - AI-Powered Canadian Travel Planning Platform (In Development)
 
 CanTrip is a comprehensive travel planning platform that uses AI to generate personalized itineraries, packing lists, and travel recommendations for destinations across Canada. Built with Go (backend API) and Python (LangGraph agent), it provides intelligent travel planning based on mood, interests, budget, and Canadian destinations.
 
@@ -304,55 +304,8 @@ curl http://localhost:8001/evaluation/summary
    docker run -p 8080:8080 cantrip-backend
    docker run -p 8001:8001 cantrip-agent
    ```
-
-### Cloud Deployment
-
-#### Google Cloud Run
-```bash
-# Deploy backend
-gcloud run deploy cantrip-backend --source ./backend
-
-# Deploy agent
-gcloud run deploy cantrip-agent --source ./backend/langgraph_agent
 ```
-
-#### AWS ECS
-```bash
-# Use provided docker-compose.yml
-docker-compose up -d
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-- Follow Go and Python style guides
-- Add tests for new features
-- Update documentation
-- Use conventional commit messages
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [LangGraph](https://github.com/langchain-ai/langgraph) for the agent framework
-- [Gin](https://github.com/gin-gonic/gin) for the Go web framework
-- [Phoenix](https://github.com/Arize-ai/phoenix) for evaluation and monitoring
-- All the external APIs that make this platform possible
-
-## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/your-repo/cantrip/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-repo/cantrip/discussions)
-- **Email**: support@cantrip.com
-
----
-
-**Happy Traveling! ✈️🌍**
