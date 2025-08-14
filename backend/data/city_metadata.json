@@ -1,0 +1,1123 @@
+{
+  "cities": [
+    {
+      "name": "Toronto",
+      "province": "Ontario",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 43.6532,
+        "lng": -79.3832
+      },
+      "timezone": "America/Toronto",
+      "population": 2930000,
+      "description": "Canada's largest city and financial hub, known for its diverse culture, iconic CN Tower, and vibrant arts scene.",
+      "seasons": {
+        "spring": {
+          "months": ["March", "April", "May"],
+          "avg_temp": 10,
+          "activities": ["Cherry Blossom Festival", "Toronto Blue Jays games", "High Park walks"]
+        },
+        "summer": {
+          "months": ["June", "July", "August"],
+          "avg_temp": 22,
+          "activities": ["CNE", "Toronto Islands", "Outdoor patios", "Festivals"]
+        },
+        "fall": {
+          "months": ["September", "October", "November"],
+          "avg_temp": 12,
+          "activities": ["TIFF", "Fall colors", "Apple picking"]
+        },
+        "winter": {
+          "months": ["December", "January", "February"],
+          "avg_temp": -3,
+          "activities": ["Winterlicious", "Ice skating", "Holiday markets"]
+        }
+      },
+      "attractions": [
+        "CN Tower",
+        "Royal Ontario Museum",
+        "Art Gallery of Ontario",
+        "Casa Loma",
+        "Distillery District",
+        "St. Lawrence Market",
+        "High Park",
+        "Toronto Islands"
+      ],
+      "neighborhoods": [
+        "Downtown",
+        "Kensington Market",
+        "Yorkville",
+        "Queen West",
+        "The Annex",
+        "Little Italy",
+        "Chinatown",
+        "Greektown"
+      ]
+    },
+    {
+      "name": "Vancouver",
+      "province": "British Columbia",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 49.2827,
+        "lng": -123.1207
+      },
+      "timezone": "America/Vancouver",
+      "population": 675000,
+      "description": "Coastal city known for its stunning natural beauty, mild climate, and outdoor lifestyle.",
+      "seasons": {
+        "spring": {
+          "months": ["March", "April", "May"],
+          "avg_temp": 12,
+          "activities": ["Cherry blossom viewing", "Hiking", "Whale watching"]
+        },
+        "summer": {
+          "months": ["June", "July", "August"],
+          "avg_temp": 18,
+          "activities": ["Beach activities", "Stanley Park", "Granville Island", "Hiking"]
+        },
+        "fall": {
+          "months": ["September", "October", "November"],
+          "avg_temp": 13,
+          "activities": ["Vancouver International Film Festival", "Fall hiking", "Wine tours"]
+        },
+        "winter": {
+          "months": ["December", "January", "February"],
+          "avg_temp": 6,
+          "activities": ["Skiing at nearby mountains", "Christmas markets", "Indoor activities"]
+        }
+      },
+      "attractions": [
+        "Stanley Park",
+        "Granville Island",
+        "Capilano Suspension Bridge",
+        "Grouse Mountain",
+        "Vancouver Aquarium",
+        "Science World",
+        "Museum of Anthropology",
+        "English Bay"
+      ],
+      "neighborhoods": [
+        "Gastown",
+        "Yaletown",
+        "West End",
+        "Kitsilano",
+        "Commercial Drive",
+        "Mount Pleasant",
+        "Chinatown",
+        "Granville Island"
+      ]
+    },
+    {
+      "name": "Montreal",
+      "province": "Quebec",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 45.5017,
+        "lng": -73.5673
+      },
+      "timezone": "America/Montreal",
+      "population": 1780000,
+      "description": "Quebec's largest city, known for its French culture, festivals, and historic architecture.",
+      "seasons": {
+        "spring": {
+          "months": ["March", "April", "May"],
+          "avg_temp": 8,
+          "activities": ["Maple syrup season", "Spring festivals", "Old Montreal walks"]
+        },
+        "summer": {
+          "months": ["June", "July", "August"],
+          "avg_temp": 20,
+          "activities": ["Just for Laughs Festival", "Jazz Festival", "Outdoor dining", "Bike tours"]
+        },
+        "fall": {
+          "months": ["September", "October", "November"],
+          "avg_temp": 10,
+          "activities": ["Fall colors", "Food festivals", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February"],
+          "avg_temp": -8,
+          "activities": ["Underground City", "Winter festivals", "Ice skating", "Indoor activities"]
+        }
+      },
+      "attractions": [
+        "Old Montreal",
+        "Notre-Dame Basilica",
+        "Mount Royal",
+        "Biodome",
+        "Botanical Garden",
+        "Underground City",
+        "Jean-Talon Market",
+        "Plateau Mont-Royal"
+      ],
+      "neighborhoods": [
+        "Old Montreal",
+        "Plateau Mont-Royal",
+        "Mile End",
+        "Little Italy",
+        "Chinatown",
+        "Griffintown",
+        "Westmount",
+        "Outremont"
+      ]
+    },
+    {
+      "name": "Calgary",
+      "province": "Alberta",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 51.0447,
+        "lng": -114.0719
+      },
+      "timezone": "America/Edmonton",
+      "population": 1300000,
+      "description": "Alberta's largest city, gateway to the Rocky Mountains and home to the Calgary Stampede.",
+      "seasons": {
+        "spring": {
+          "months": ["March", "April", "May"],
+          "avg_temp": 8,
+          "activities": ["Spring hiking", "Calgary Flames games", "Outdoor activities"]
+        },
+        "summer": {
+          "months": ["June", "July", "August"],
+          "avg_temp": 16,
+          "activities": ["Calgary Stampede", "Banff National Park", "Hiking", "Festivals"]
+        },
+        "fall": {
+          "months": ["September", "October", "November"],
+          "avg_temp": 7,
+          "activities": ["Fall colors", "Rocky Mountain trips", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February"],
+          "avg_temp": -7,
+          "activities": ["Skiing", "Winter sports", "Indoor activities", "Calgary Flames"]
+        }
+      },
+      "attractions": [
+        "Calgary Tower",
+        "Calgary Zoo",
+        "Heritage Park",
+        "Glenbow Museum",
+        "Calgary Stampede Grounds",
+        "Fish Creek Provincial Park",
+        "Prince's Island Park",
+        "Stephen Avenue Walk"
+      ],
+      "neighborhoods": [
+        "Downtown",
+        "Kensington",
+        "Inglewood",
+        "Beltline",
+        "Mission",
+        "Bridgeland",
+        "East Village",
+        "17th Avenue"
+      ]
+    },
+    {
+      "name": "Ottawa",
+      "province": "Ontario",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 45.4215,
+        "lng": -75.6972
+      },
+      "timezone": "America/Toronto",
+      "population": 994000,
+      "description": "Canada's capital city, known for its government buildings, museums, and cultural institutions.",
+      "seasons": {
+        "spring": {
+          "months": ["March", "April", "May"],
+          "avg_temp": 8,
+          "activities": ["Tulip Festival", "Parliament Hill", "Spring walks"]
+        },
+        "summer": {
+          "months": ["June", "July", "August"],
+          "avg_temp": 20,
+          "activities": ["Canada Day celebrations", "Ottawa Senators games", "Canal activities", "Festivals"]
+        },
+        "fall": {
+          "months": ["September", "October", "November"],
+          "avg_temp": 10,
+          "activities": ["Fall colors", "Museum visits", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February"],
+          "avg_temp": -8,
+          "activities": ["Winterlude", "Ice skating on canal", "Indoor museums", "Winter sports"]
+        }
+      },
+      "attractions": [
+        "Parliament Hill",
+        "National Gallery of Canada",
+        "Canadian Museum of History",
+        "Rideau Canal",
+        "ByWard Market",
+        "Canadian War Museum",
+        "National Arts Centre",
+        "Gatineau Park"
+      ],
+      "neighborhoods": [
+        "Centretown",
+        "ByWard Market",
+        "Westboro",
+        "Hintonburg",
+        "New Edinburgh",
+        "Rockcliffe Park",
+        "Glebe",
+        "Sandy Hill"
+      ]
+    },
+    {
+      "name": "Quebec City",
+      "province": "Quebec",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 46.8139,
+        "lng": -71.2080
+      },
+      "timezone": "America/Montreal",
+      "population": 542000,
+      "description": "Historic walled city with European charm, known for its French heritage and winter carnival.",
+      "seasons": {
+        "spring": {
+          "months": ["March", "April", "May"],
+          "avg_temp": 6,
+          "activities": ["Maple syrup tours", "Spring festivals", "Old Quebec walks"]
+        },
+        "summer": {
+          "months": ["June", "July", "August"],
+          "avg_temp": 18,
+          "activities": ["Festival d'été", "Terrasse Dufferin", "Château Frontenac", "Outdoor dining"]
+        },
+        "fall": {
+          "months": ["September", "October", "November"],
+          "avg_temp": 8,
+          "activities": ["Fall colors", "Food festivals", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February"],
+          "avg_temp": -10,
+          "activities": ["Carnaval de Québec", "Ice Hotel", "Winter sports", "Indoor activities"]
+        }
+      },
+      "attractions": [
+        "Château Frontenac",
+        "Old Quebec",
+        "Terrasse Dufferin",
+        "Plains of Abraham",
+        "Notre-Dame de Québec",
+        "Petit Champlain",
+        "Montmorency Falls",
+        "Carnaval de Québec"
+      ],
+      "neighborhoods": [
+        "Old Quebec",
+        "Petit Champlain",
+        "Saint-Roch",
+        "Saint-Jean-Baptiste",
+        "Montcalm",
+        "Sillery",
+        "Sainte-Foy",
+        "Limoilou"
+      ]
+    },
+    {
+      "name": "Victoria",
+      "province": "British Columbia",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 48.4284,
+        "lng": -123.3656
+      },
+      "timezone": "America/Vancouver",
+      "population": 92000,
+      "description": "British Columbia's capital, known for its mild climate, British heritage, and beautiful gardens.",
+      "seasons": {
+        "spring": {
+          "months": ["March", "April", "May"],
+          "avg_temp": 12,
+          "activities": ["Cherry blossom viewing", "Butchart Gardens", "Whale watching"]
+        },
+        "summer": {
+          "months": ["June", "July", "August"],
+          "avg_temp": 17,
+          "activities": ["Beach activities", "Inner Harbour", "Tea at Empress Hotel", "Hiking"]
+        },
+        "fall": {
+          "months": ["September", "October", "November"],
+          "avg_temp": 13,
+          "activities": ["Fall colors", "Wine tours", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February"],
+          "avg_temp": 7,
+          "activities": ["Christmas lights", "Indoor activities", "Mild winter walks"]
+        }
+      },
+      "attractions": [
+        "Butchart Gardens",
+        "Inner Harbour",
+        "Empress Hotel",
+        "Royal BC Museum",
+        "Parliament Buildings",
+        "Fisherman's Wharf",
+        "Beacon Hill Park",
+        "Craigdarroch Castle"
+      ],
+      "neighborhoods": [
+        "Downtown",
+        "James Bay",
+        "Oak Bay",
+        "Fernwood",
+        "Fairfield",
+        "Rockland",
+        "Esquimalt",
+        "Saanich"
+      ]
+    },
+    {
+      "name": "Banff",
+      "province": "Alberta",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 51.1784,
+        "lng": -115.5708
+      },
+      "timezone": "America/Edmonton",
+      "population": 8000,
+      "description": "Resort town in Banff National Park, known for its stunning mountain scenery, outdoor adventures, and hot springs.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 7,
+          "activities": ["Wildlife viewing", "Spring hiking", "Banff Upper Hot Springs"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 15,
+          "activities": ["Hiking", "Lake Louise trips", "Scenic drives", "Banff Gondola"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 5,
+          "activities": ["Larch Valley hikes", "Fall photography", "Wildlife watching"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -7,
+          "activities": ["Skiing", "Snowboarding", "Snowshoeing", "Ice skating"]
+        }
+      },
+      "attractions": [
+        "Lake Louise",
+        "Banff Gondola",
+        "Banff Upper Hot Springs",
+        "Johnston Canyon",
+        "Sulphur Mountain",
+        "Bow Falls",
+        "Moraine Lake",
+        "Tunnel Mountain"
+      ],
+      "neighborhoods": [
+        "Downtown Banff",
+        "Tunnel Mountain",
+        "Sulphur Mountain area"
+      ]
+    },
+    {
+      "name": "Halifax",
+      "province": "Nova Scotia",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 44.6488,
+        "lng": -63.5752
+      },
+      "timezone": "America/Halifax",
+      "population": 439000,
+      "description": "Maritime city with a vibrant waterfront, historic sites, and rich Atlantic Canadian culture.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 8,
+          "activities": ["Harbour walks", "Historic site visits", "Spring festivals"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 18,
+          "activities": ["Harbourfront dining", "Tall Ships Festival", "Beaches", "Boat tours"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 10,
+          "activities": ["Fall foliage", "Cultural events", "Harvest festivals"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -2,
+          "activities": ["Museum visits", "Ice skating", "Winter markets"]
+        }
+      },
+      "attractions": [
+        "Halifax Citadel",
+        "Waterfront Boardwalk",
+        "Maritime Museum of the Atlantic",
+        "Peggy's Cove",
+        "Point Pleasant Park",
+        "Public Gardens",
+        "Alexander Keith's Brewery",
+        "Pier 21"
+      ],
+      "neighborhoods": [
+        "Downtown Halifax",
+        "North End",
+        "South End",
+        "Hydrostone",
+        "Dartmouth"
+      ]
+    },
+    {
+      "name": "Edmonton",
+      "province": "Alberta",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 53.5461,
+        "lng": -113.4938
+      },
+      "timezone": "America/Edmonton",
+      "population": 981000,
+      "description": "Capital of Alberta, known for its festival scene, river valley parks, and West Edmonton Mall.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 7,
+          "activities": ["River valley walks", "Spring festivals", "Edmonton Oilers games"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 17,
+          "activities": ["Fringe Festival", "K-Days", "Hiking and biking", "Patios"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 6,
+          "activities": ["Fall colors", "Art gallery visits", "Theatre"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -10,
+          "activities": ["Ice Castles", "Skiing", "Indoor attractions"]
+        }
+      },
+      "attractions": [
+        "West Edmonton Mall",
+        "Edmonton Valley Zoo",
+        "Royal Alberta Museum",
+        "Art Gallery of Alberta",
+        "Muttart Conservatory",
+        "Fort Edmonton Park",
+        "River Valley Parks",
+        "Commonwealth Stadium"
+      ],
+      "neighborhoods": [
+        "Downtown",
+        "Old Strathcona",
+        "Garneau",
+        "Oliver",
+        "Westmount"
+      ]
+    },
+    {
+      "name": "Whistler",
+      "province": "British Columbia",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 50.1163,
+        "lng": -122.9574
+      },
+      "timezone": "America/Vancouver",
+      "population": 14000,
+      "description": "World-renowned mountain resort town known for skiing, snowboarding, mountain biking, and alpine scenery.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 8,
+          "activities": ["Spring skiing", "Hiking", "Ziplining"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 16,
+          "activities": ["Mountain biking", "Hiking", "Golfing", "Festivals"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 5,
+          "activities": ["Scenic drives", "Spa visits", "Photography"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -2,
+          "activities": ["Skiing", "Snowboarding", "Snowshoeing", "Après-ski"]
+        }
+      },
+      "attractions": [
+        "Whistler Blackcomb",
+        "Peak 2 Peak Gondola",
+        "Lost Lake",
+        "Audain Art Museum",
+        "Whistler Village",
+        "Brandywine Falls",
+        "Cheakamus Lake",
+        "Vallea Lumina"
+      ],
+      "neighborhoods": [
+        "Whistler Village",
+        "Creekside",
+        "Upper Village"
+      ]
+    },
+    {
+      "name": "Jasper",
+      "province": "Alberta",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 52.8734,
+        "lng": -118.0814
+      },
+      "timezone": "America/Edmonton",
+      "population": 4300,
+      "description": "Town in Jasper National Park, known for dramatic mountain landscapes, dark-sky stargazing, and abundant wildlife.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 6,
+          "activities": ["Wildlife viewing", "Hiking", "Photography"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 15,
+          "activities": ["Canoeing", "Maligne Lake cruises", "Scenic drives"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 4,
+          "activities": ["Fall colors", "Dark-sky events", "Hiking"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -8,
+          "activities": ["Skiing", "Snowshoeing", "Ice walks"]
+        }
+      },
+      "attractions": [
+        "Maligne Lake",
+        "Athabasca Falls",
+        "Jasper SkyTram",
+        "Miette Hot Springs",
+        "Maligne Canyon",
+        "Pyramid Lake",
+        "Mount Edith Cavell",
+        "Spirit Island"
+      ],
+      "neighborhoods": [
+        "Downtown Jasper"
+      ]
+    },
+    {
+      "name": "Niagara Region",
+      "province": "Ontario",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 43.0896,
+        "lng": -79.0849
+      },
+      "timezone": "America/Toronto",
+      "population": 447000,
+      "description": "Region famous for Niagara Falls, wine country, and charming towns like Niagara-on-the-Lake.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 11,
+          "activities": ["Flower festivals", "Winery tours", "Niagara Falls sightseeing"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 21,
+          "activities": ["Boat tours", "Falls Illumination", "Shaw Festival", "Beaches"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 12,
+          "activities": ["Wine harvest", "Fall foliage", "Culinary events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -1,
+          "activities": ["Winter Festival of Lights", "Ice wine festival", "Indoor attractions"]
+        }
+      },
+      "attractions": [
+        "Niagara Falls",
+        "Niagara Parks",
+        "Niagara-on-the-Lake",
+        "Skylon Tower",
+        "Clifton Hill",
+        "Shaw Festival Theatre",
+        "Whirlpool Aero Car",
+        "Botanical Gardens"
+      ],
+      "neighborhoods": [
+        "Niagara Falls",
+        "Niagara-on-the-Lake",
+        "St. Catharines",
+        "Welland"
+      ]
+    },
+    {
+      "name": "Yukon",
+      "province": "Yukon",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 60.7212,
+        "lng": -135.0568
+      },
+      "timezone": "America/Whitehorse",
+      "population": 44000,
+      "description": "Northern territory known for its wilderness, gold rush history, and spectacular northern lights.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 3,
+          "activities": ["Wildlife viewing", "Spring hikes", "Cultural sites"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 14,
+          "activities": ["Midnight sun viewing", "Canoeing", "Hiking", "Fishing"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": -1,
+          "activities": ["Aurora viewing", "Photography", "Hiking"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -16,
+          "activities": ["Northern lights tours", "Dog sledding", "Snowmobiling"]
+        }
+      },
+      "attractions": [
+        "Whitehorse",
+        "Kluane National Park",
+        "Dawson City",
+        "Takhini Hot Springs",
+        "Miles Canyon",
+        "SS Klondike",
+        "Northern Lights viewing spots",
+        "Tombstone Territorial Park"
+      ],
+      "neighborhoods": [
+        "Whitehorse",
+        "Dawson City"
+      ]
+    },
+    {
+      "name": "Gros Morne National Park",
+      "province": "Newfoundland & Labrador",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 49.5925,
+        "lng": -57.9311
+      },
+      "timezone": "America/St_Johns",
+      "population": 0,
+      "description": "UNESCO World Heritage site featuring dramatic fjords, mountains, and marine landscapes.",
+      "seasons": {
+        "spring": {
+          "months": ["May", "June"],
+          "avg_temp": 4,
+          "activities": ["Hiking", "Wildlife viewing", "Photography"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 12,
+          "activities": ["Boat tours", "Hiking", "Fishing", "Cultural experiences"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 6,
+          "activities": ["Fall colors", "Photography", "Hiking"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March", "April"],
+          "avg_temp": -4,
+          "activities": ["Snowshoeing", "Cross-country skiing", "Winter photography"]
+        }
+      },
+      "attractions": [
+        "Western Brook Pond",
+        "Tablelands",
+        "Gros Morne Mountain",
+        "Green Gardens",
+        "Lobster Cove Head",
+        "Norris Point",
+        "Rocky Harbour",
+        "Trout River"
+      ],
+      "neighborhoods": [
+        "Rocky Harbour",
+        "Norris Point",
+        "Trout River"
+      ]
+    },
+    {
+      "name": "Churchill",
+      "province": "Manitoba",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 58.7684,
+        "lng": -94.1650
+      },
+      "timezone": "America/Winnipeg",
+      "population": 900,
+      "description": "Northern town famous for polar bear and beluga whale tours, offering unique wildlife experiences.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": -2,
+          "activities": ["Bird watching", "Spring wildlife viewing"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 12,
+          "activities": ["Beluga whale watching", "Hiking", "Cultural tours"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": -1,
+          "activities": ["Polar bear viewing", "Northern lights", "Photography"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -20,
+          "activities": ["Polar bear tours", "Dog sledding", "Northern lights viewing"]
+        }
+      },
+      "attractions": [
+        "Polar Bear Tours",
+        "Beluga Whale Watching",
+        "Churchill Northern Studies Centre",
+        "Itsanitaq Museum",
+        "Prince of Wales Fort",
+        "Cape Merry",
+        "Northern Lights viewing",
+        "Dog sledding tours"
+      ],
+      "neighborhoods": [
+        "Downtown Churchill"
+      ]
+    },
+    {
+      "name": "Cape Breton Island",
+      "province": "Nova Scotia",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 46.1389,
+        "lng": -60.1931
+      },
+      "timezone": "America/Halifax",
+      "population": 95000,
+      "description": "Island known for the scenic Cabot Trail, coastal highlands, and rich Gaelic culture.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 7,
+          "activities": ["Spring hiking", "Cultural events", "Photography"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 17,
+          "activities": ["Cabot Trail driving", "Hiking", "Celtic music festivals", "Beaches"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 9,
+          "activities": ["Fall foliage", "Celtic Colours Festival", "Photography"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -3,
+          "activities": ["Winter hiking", "Cultural events", "Indoor activities"]
+        }
+      },
+      "attractions": [
+        "Cabot Trail",
+        "Cape Breton Highlands National Park",
+        "Fortress of Louisbourg",
+        "Alexander Graham Bell Museum",
+        "Celtic Music Interpretive Centre",
+        "Baddeck",
+        "Ingonish Beach",
+        "Gaelic College"
+      ],
+      "neighborhoods": [
+        "Sydney",
+        "Baddeck",
+        "Ingonish",
+        "Cheticamp"
+      ]
+    },
+    {
+      "name": "Saguenay Region",
+      "province": "Quebec",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 48.4168,
+        "lng": -71.0652
+      },
+      "timezone": "America/Montreal",
+      "population": 160000,
+      "description": "Beautiful region featuring fjords, forests, and charming small towns, often called Quebec's hidden gem.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 6,
+          "activities": ["Spring hiking", "Maple syrup tours", "Photography"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 16,
+          "activities": ["Fjord cruises", "Hiking", "Kayaking", "Cultural festivals"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 7,
+          "activities": ["Fall colors", "Photography", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -8,
+          "activities": ["Skiing", "Snowshoeing", "Winter sports", "Indoor activities"]
+        }
+      },
+      "attractions": [
+        "Saguenay Fjord",
+        "Parc national du Fjord-du-Saguenay",
+        "La Baie",
+        "Chicoutimi",
+        "Tadoussac",
+        "Cap Jaseux",
+        "Musée du Fjord",
+        "Zoo de Saint-Félicien"
+      ],
+      "neighborhoods": [
+        "Chicoutimi",
+        "La Baie",
+        "Jonquière",
+        "Tadoussac"
+      ]
+    },
+    {
+      "name": "Kingston",
+      "province": "Ontario",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 44.2312,
+        "lng": -76.4860
+      },
+      "timezone": "America/Toronto",
+      "population": 132000,
+      "description": "Historic city on Lake Ontario, rich in heritage with World Heritage Rideau Canal, historic forts, and heritage buildings.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 9,
+          "activities": ["Historic site visits", "Spring walks", "Cultural events"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 20,
+          "activities": ["Boat tours", "Fort Henry", "Waterfront activities", "Festivals"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 10,
+          "activities": ["Fall colors", "Heritage walks", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -4,
+          "activities": ["Indoor museums", "Winter activities", "Cultural events"]
+        }
+      },
+      "attractions": [
+        "Fort Henry",
+        "Kingston Penitentiary",
+        "Rideau Canal",
+        "Queen's University",
+        "Kingston City Hall",
+        "Bellevue House",
+        "Marine Museum",
+        "Thousand Islands"
+      ],
+      "neighborhoods": [
+        "Downtown Kingston",
+        "University District",
+        "Cataraqui",
+        "West End"
+      ]
+    },
+    {
+      "name": "Trois-Rivières",
+      "province": "Quebec",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 46.3432,
+        "lng": -72.5436
+      },
+      "timezone": "America/Montreal",
+      "population": 139000,
+      "description": "Cultural hub known as Quebec's 'Poetry Capital,' hosting international festivals and boasting historic Old Town charm.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 8,
+          "activities": ["Spring festivals", "Historic walks", "Cultural events"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 19,
+          "activities": ["International poetry festival", "Old Town tours", "River activities"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 9,
+          "activities": ["Fall colors", "Cultural events", "Photography"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -7,
+          "activities": ["Winter festivals", "Indoor activities", "Cultural events"]
+        }
+      },
+      "attractions": [
+        "Old Town",
+        "International Poetry Festival",
+        "Museum of Popular Culture",
+        "Parc de l'île Saint-Quentin",
+        "Borealis",
+        "Maison de la culture",
+        "Parc portuaire",
+        "Cathédrale de l'Assomption"
+      ],
+      "neighborhoods": [
+        "Old Town",
+        "Downtown",
+        "Cap-de-la-Madeleine",
+        "Sainte-Marthe-du-Cap"
+      ]
+    },
+    {
+      "name": "Gatineau",
+      "province": "Quebec",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 45.4765,
+        "lng": -75.7013
+      },
+      "timezone": "America/Montreal",
+      "population": 285000,
+      "description": "City across the river from Ottawa, boasting expansive Gatineau Park for hiking, biking, skiing, trails, and lake views.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 8,
+          "activities": ["Gatineau Park hiking", "Spring festivals", "Cultural events"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 19,
+          "activities": ["Gatineau Park activities", "Beach visits", "Festivals", "Biking"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 9,
+          "activities": ["Fall colors in Gatineau Park", "Photography", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -7,
+          "activities": ["Gatineau Park skiing", "Winter sports", "Indoor activities"]
+        }
+      },
+      "attractions": [
+        "Gatineau Park",
+        "Canadian Museum of History",
+        "Casino du Lac-Leamy",
+        "Jacques Cartier Park",
+        "Mackenzie King Estate",
+        "Pink Lake",
+        "Lac Philippe",
+        "Champlain Lookout"
+      ],
+      "neighborhoods": [
+        "Hull",
+        "Aylmer",
+        "Gatineau",
+        "Buckingham"
+      ]
+    },
+    {
+      "name": "Kitchener-Waterloo",
+      "province": "Ontario",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 43.4516,
+        "lng": -80.4925
+      },
+      "timezone": "America/Toronto",
+      "population": 470000,
+      "description": "Cultural hotspot known for authentic Oktoberfest, thriving music festivals, and arts venues.",
+      "seasons": {
+        "spring": {
+          "months": ["April", "May", "June"],
+          "avg_temp": 9,
+          "activities": ["Spring festivals", "Cultural events", "Outdoor activities"]
+        },
+        "summer": {
+          "months": ["July", "August", "September"],
+          "avg_temp": 20,
+          "activities": ["Music festivals", "Outdoor patios", "Cultural events", "Parks"]
+        },
+        "fall": {
+          "months": ["October", "November"],
+          "avg_temp": 10,
+          "activities": ["Oktoberfest", "Fall colors", "Cultural events"]
+        },
+        "winter": {
+          "months": ["December", "January", "February", "March"],
+          "avg_temp": -3,
+          "activities": ["Indoor cultural events", "Winter activities", "Arts venues"]
+        }
+      },
+      "attractions": [
+        "Oktoberfest",
+        "Kitchener-Waterloo Art Gallery",
+        "TheMuseum",
+        "Victoria Park",
+        "St. Jacobs Farmers' Market",
+        "Waterloo Park",
+        "Centre in the Square",
+        "Conestoga Mall"
+      ],
+      "neighborhoods": [
+        "Downtown Kitchener",
+        "Downtown Waterloo",
+        "Uptown Waterloo",
+        "St. Jacobs"
+      ]
+    }
+  ]
+} 
