@@ -19,7 +19,6 @@ type TipsResponse struct {
 	Category    string             `json:"category"`
 	Tips        []services.Tip     `json:"tips"`
 	Emergency   services.Emergency `json:"emergency"`
-	Currency    services.Currency  `json:"currency"`
 	Language    services.Language  `json:"language"`
 }
 
@@ -52,13 +51,6 @@ func GetTravelTipsHandler(c *gin.Context) {
 		return
 	}
 
-	// Get currency information
-	currency, err := services.GetCurrencyInfo(req.Destination)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get currency information"})
-		return
-	}
-
 	// Get language information
 	language, err := services.GetLanguageInfo(req.Destination)
 	if err != nil {
@@ -71,7 +63,6 @@ func GetTravelTipsHandler(c *gin.Context) {
 		Category:    req.Category,
 		Tips:        tips,
 		Emergency:   emergency,
-		Currency:    currency,
 		Language:    language,
 	}
 
@@ -155,5 +146,45 @@ func GetLocalCustomsHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"destination": destination,
 		"customs":     customs,
+	})
+}
+
+// GetEmergencyInfoHandler returns emergency information for a destination
+func GetEmergencyInfoHandler(c *gin.Context) {
+	destination := c.Param("destination")
+	if destination == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Destination parameter is required"})
+		return
+	}
+
+	emergency, err := services.GetEmergencyInfo(destination)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get emergency info"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"destination": destination,
+		"emergency":   emergency,
+	})
+}
+
+// GetLanguageInfoHandler returns language information for a destination
+func GetLanguageInfoHandler(c *gin.Context) {
+	destination := c.Param("destination")
+	if destination == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Destination parameter is required"})
+		return
+	}
+
+	language, err := services.GetLanguageInfo(destination)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get language info"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"destination": destination,
+		"language":    language,
 	})
 }

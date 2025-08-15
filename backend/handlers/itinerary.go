@@ -91,8 +91,20 @@ func CreateItineraryHandler(c *gin.Context) {
 		return
 	}
 
+	// Convert handler request to services request
+	servicesReq := services.ItineraryRequest{
+		City:          req.City,
+		StartDate:     req.StartDate.Format("2006-01-02"),
+		EndDate:       req.EndDate.Format("2006-01-02"),
+		Interests:     req.Interests,
+		Budget:        req.Budget,
+		GroupSize:     req.GroupSize,
+		Pace:          req.Pace,
+		Accommodation: req.Accommodation,
+	}
+
 	// Call LangGraph agent to generate itinerary
-	itinerary, err := services.GenerateItinerary(req)
+	itinerary, err := services.GenerateItinerary(servicesReq)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate itinerary: " + err.Error()})
 		return
@@ -139,8 +151,20 @@ func UpdateItineraryHandler(c *gin.Context) {
 		return
 	}
 
+	// Convert handler request to services request
+	servicesReq := services.ItineraryRequest{
+		City:          req.City,
+		StartDate:     req.StartDate.Format("2006-01-02"),
+		EndDate:       req.EndDate.Format("2006-01-02"),
+		Interests:     req.Interests,
+		Budget:        req.Budget,
+		GroupSize:     req.GroupSize,
+		Pace:          req.Pace,
+		Accommodation: req.Accommodation,
+	}
+
 	// Regenerate itinerary with updated parameters
-	itinerary, err := services.GenerateItinerary(req)
+	itinerary, err := services.GenerateItinerary(servicesReq)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update itinerary"})
 		return

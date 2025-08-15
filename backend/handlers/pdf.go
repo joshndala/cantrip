@@ -61,10 +61,10 @@ func GeneratePDFHandler(c *gin.Context) {
 
 	response := PDFResponse{
 		URL:         pdfURL,
-		Filename:    metadata["filename"].(string),
-		Size:        metadata["size"].(int64),
-		ExpiresAt:   metadata["expires_at"].(string),
-		DownloadURL: metadata["download_url"].(string),
+		Filename:    metadata.Filename,
+		Size:        metadata.Size,
+		ExpiresAt:   metadata.ExpiresAt.Format("2006-01-02T15:04:05Z"),
+		DownloadURL: metadata.DownloadURL,
 	}
 
 	c.JSON(http.StatusOK, response)
