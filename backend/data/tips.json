@@ -1,0 +1,788 @@
+{
+    "general_canada": {
+      "currency": {
+        "name": "Canadian Dollar",
+        "code": "CAD",
+        "symbol": "$",
+        "notes": [5, 10, 20, 50, 100],
+        "coins": ["$2", "$1", "25¢", "10¢", "5¢"]
+      },
+      "language": {
+        "primary": ["English", "French"],
+        "common_phrases": [
+          { "phrase": "Hello", "translation_en": "Hello", "translation_fr": "Bonjour" },
+          { "phrase": "Thank you", "translation_en": "Thank you", "translation_fr": "Merci" },
+          { "phrase": "Excuse me", "translation_en": "Excuse me", "translation_fr": "Excusez-moi" }
+        ]
+      },
+      "emergency": {
+        "general": "911",
+        "notes": "Use 811 or provincial health lines for non‑emergency health advice where available."
+      },
+      "tipping": [
+        {
+          "title": "Restaurants",
+          "description": "15–20% before tax is standard at sit‑down restaurants; fast‑casual is optional or small change.",
+          "priority": "high",
+          "tags": ["restaurants", "service"]
+        },
+        {
+          "title": "Bars & Cafés",
+          "description": "At bars, $1–$2 per drink or 15–20% on the tab; cafés often present tip prompts but it’s optional.",
+          "priority": "medium",
+          "tags": ["bars", "cafes"]
+        },
+        {
+          "title": "Transport & Services",
+          "description": "Taxis/rideshare 10–15%; hair/beauty 15–20%; hotel housekeeping $2–$5 per night.",
+          "priority": "medium",
+          "tags": ["transport", "personal-care", "hotel"]
+        }
+      ],
+      "cultural": [
+        {
+          "title": "Politeness & Personal Space",
+          "description": "Canadians value please/thank you, holding doors, and giving others space in lines and transit.",
+          "priority": "low",
+          "tags": ["etiquette", "queueing"]
+        },
+        {
+          "title": "Punctuality",
+          "description": "Arriving on time for reservations, tours, and tickets is expected; late arrivals may lose spots.",
+          "priority": "medium",
+          "tags": ["time", "reservations"]
+        },
+        {
+          "title": "Smoking & Vaping",
+          "description": "Banned indoors and within posted distances of entrances/patios; check local signage.",
+          "priority": "medium",
+          "tags": ["health", "laws"]
+        }
+      ],
+      "safety": [
+        {
+          "title": "Night Safety Basics",
+          "description": "Downtowns are generally safe, but stay in well‑lit areas, keep valuables out of sight, and use licensed transport.",
+          "priority": "medium",
+          "tags": ["nightlife", "streets"]
+        },
+        {
+          "title": "Weather Swing",
+          "description": "Weather changes fast. Pack layers year‑round; winters require traction footwear and insulated gear.",
+          "priority": "high",
+          "tags": ["weather", "winter"]
+        },
+        {
+          "title": "Wildlife & Parks",
+          "description": "In parks, keep at least 30–100 m from wildlife, never feed animals, and follow local bear/wolf/cougar guidance.",
+          "priority": "high",
+          "tags": ["wildlife", "parks"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Sales Tax",
+          "description": "Prices exclude GST/HST/PST; expect 5–15% added at checkout depending on province.",
+          "priority": "high",
+          "tags": ["money", "tax"]
+        },
+        {
+          "title": "Drinking in Public",
+          "description": "Open alcohol is generally restricted; only in licensed venues or designated areas.",
+          "priority": "high",
+          "tags": ["alcohol", "laws"]
+        },
+        {
+          "title": "Shoes Indoors",
+          "description": "Removing shoes at someone’s home is common; look for a shoe rack by the entrance.",
+          "priority": "low",
+          "tags": ["home", "etiquette"]
+        }
+      ]
+    },
+  
+    "Toronto": {
+      "cultural": [
+        {
+          "title": "Diverse Neighborhoods = Diverse Food",
+          "description": "Explore Little Italy, Greektown, Koreatown, Little India, and Chinatown for authentic eats.",
+          "priority": "medium",
+          "tags": ["food", "neighborhoods"]
+        },
+        {
+          "title": "Patio Season",
+          "description": "Patios fill quickly on warm days; reservations help, and many spots are first‑come.",
+          "priority": "low",
+          "tags": ["patios", "summer"]
+        }
+      ],
+      "tipping": [
+        {
+          "title": "Auto‑Gratuity for Groups",
+          "description": "Large groups (6–8+) often have 18% auto‑gratuity; check your bill.",
+          "priority": "medium",
+          "tags": ["restaurants", "groups"]
+        }
+      ],
+      "safety": [
+        {
+          "title": "Entertainment District Weekends",
+          "description": "Expect crowds and traffic late Fri–Sat. Use main streets and licensed cabs or rideshare.",
+          "priority": "medium",
+          "tags": ["nightlife", "transport"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Transit Etiquette",
+          "description": "On the TTC, let riders exit first and keep backpacks off on crowded trains.",
+          "priority": "low",
+          "tags": ["ttc", "transit"]
+        }
+      ]
+    },
+  
+    "Vancouver": {
+      "cultural": [
+        {
+          "title": "Outdoor Culture",
+          "description": "Hiking gear and athleisure are normal everyday wear; many cafés welcome casual dress.",
+          "priority": "low",
+          "tags": ["outdoors", "dress"]
+        }
+      ],
+      "tipping": [
+        {
+          "title": "Counter‑Service Prompts",
+          "description": "Tip screens appear widely; for counter‑service it’s optional or small (5–10%).",
+          "priority": "low",
+          "tags": ["cafes", "counter-service"]
+        }
+      ],
+      "safety": [
+        {
+          "title": "Rain‑Ready",
+          "description": "Carry a light waterproof layer; sidewalks get slick and weather shifts quickly.",
+          "priority": "medium",
+          "tags": ["rain", "gear"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Cyclist Awareness",
+          "description": "Tons of bike lanes; check for cyclists when opening car doors and crossing lanes.",
+          "priority": "low",
+          "tags": ["cycling", "roads"]
+        }
+      ]
+    },
+  
+    "Montreal": {
+      "language": {
+        "notes": "Begin with 'Bonjour'; most service staff can switch to English after."
+      },
+      "cultural": [
+        {
+          "title": "Café & Terrace Pace",
+          "description": "Lingering is normal; service may feel slower than Toronto — it’s intentional.",
+          "priority": "low",
+          "tags": ["cafes", "pace"]
+        }
+      ],
+      "tipping": [
+        {
+          "title": "Resto Norms",
+          "description": "15–20% is standard; some bistros include service — check the bill for 'service inclus'.",
+          "priority": "medium",
+          "tags": ["restaurants", "bistros"]
+        }
+      ],
+      "safety": [
+        {
+          "title": "Old Montreal Cobblestones",
+          "description": "Wear sturdy shoes — streets can be slick in rain/snow.",
+          "priority": "low",
+          "tags": ["walking", "shoes"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "SAQ for Wine & Spirits",
+          "description": "Wine/spirits sold at SAQ stores; beer available at groceries and dépanneurs.",
+          "priority": "medium",
+          "tags": ["alcohol", "shopping"]
+        }
+      ]
+    },
+  
+    "Calgary": {
+      "cultural": [
+        {
+          "title": "Stampede Spirit",
+          "description": "During July Stampede, expect western dress, citywide events, and busy reservations.",
+          "priority": "medium",
+          "tags": ["festivals", "seasonal"]
+        }
+      ],
+      "tipping": [
+        {
+          "title": "Downtown Lunch Rush",
+          "description": "Popular steak and brunch spots may add auto‑gratuity for groups — check receipts.",
+          "priority": "low",
+          "tags": ["restaurants", "groups"]
+        }
+      ],
+      "safety": [
+        {
+          "title": "Chinook Swings",
+          "description": "Warm Chinook winds can melt snow, then refreeze — watch ice on sidewalks.",
+          "priority": "medium",
+          "tags": ["weather", "winter"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Car‑Forward City",
+          "description": "Transit exists but distances can be large; plan rideshare/designated drivers for nights out.",
+          "priority": "low",
+          "tags": ["transport", "planning"]
+        }
+      ]
+    },
+  
+    "Ottawa": {
+      "cultural": [
+        {
+          "title": "Museum & Government Hours",
+          "description": "Many close earlier than big‑city norms; check hours and security screening rules.",
+          "priority": "medium",
+          "tags": ["museums", "planning"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Canal Conditions",
+          "description": "In winter, skate only when the Rideau Canal is officially open; heed red/green flags.",
+          "priority": "high",
+          "tags": ["winter", "ice-safety"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Cross‑River Quirks",
+          "description": "Hopping to Gatineau means different taxes and sometimes language norms (French first).",
+          "priority": "low",
+          "tags": ["tax", "language"]
+        }
+      ]
+    },
+  
+    "Quebec City": {
+      "language": { "notes": "A friendly 'Bonjour' first is appreciated; staff often bilingual in tourist areas." },
+      "cultural": [
+        {
+          "title": "Historic Core",
+          "description": "Old Quebec is compact but hilly; comfy shoes beat heels on cobblestones.",
+          "priority": "low",
+          "tags": ["walking", "shoes"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Winter Hills",
+          "description": "Stairs and slopes get icy — use handrails and wear traction in deep winter.",
+          "priority": "high",
+          "tags": ["winter", "ice-safety"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Quiet Evenings",
+          "description": "Outside festival periods, evenings can be calm; book dinner earlier.",
+          "priority": "low",
+          "tags": ["dining", "hours"]
+        }
+      ]
+    },
+  
+    "Victoria": {
+      "cultural": [
+        {
+          "title": "Tea Culture",
+          "description": "Afternoon tea is a thing; dress smart‑casual and reserve ahead on weekends.",
+          "priority": "low",
+          "tags": ["tea", "reservations"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Harbour Edges",
+          "description": "Waterfront walkways lack rails in spots — supervise kids and avoid cycling fast.",
+          "priority": "low",
+          "tags": ["waterfront", "families"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Whale Watching Etiquette",
+          "description": "Choose operators that follow distance rules; don’t pressure captains to get closer.",
+          "priority": "medium",
+          "tags": ["wildlife", "tours"]
+        }
+      ]
+    },
+  
+    "Banff": {
+      "cultural": [
+        {
+          "title": "Park Pass",
+          "description": "A Parks Canada pass is required for most visits and parking within the park.",
+          "priority": "high",
+          "tags": ["parks", "fees"]
+        }
+      ],
+      "tipping": [
+        {
+          "title": "Resort Pricing",
+          "description": "Tourist restaurants may be pricier; 15–20% still standard for table service.",
+          "priority": "medium",
+          "tags": ["restaurants", "resort"]
+        }
+      ],
+      "safety": [
+        {
+          "title": "Bear‑Smart",
+          "description": "Carry bear spray on trails, make noise, hike in groups, and secure scented items.",
+          "priority": "high",
+          "tags": ["wildlife", "hiking"],
+          "examples": ["Keep 100 m from bears, 30 m from elk/deer."]
+        },
+        {
+          "title": "Mountain Weather",
+          "description": "Layers, rain shell, and early starts reduce risk of storms and heat/cold swings.",
+          "priority": "high",
+          "tags": ["weather", "mountains"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Parking Windows",
+          "description": "Popular lots (Moraine/Louise) use shuttles or reservations in peak season.",
+          "priority": "medium",
+          "tags": ["transport", "shuttle"]
+        }
+      ]
+    },
+  
+    "Halifax": {
+      "cultural": [
+        {
+          "title": "Maritime Pace",
+          "description": "Service can feel relaxed; enjoy the waterfront stroll-and-sip vibe.",
+          "priority": "low",
+          "tags": ["pace", "waterfront"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Coastal Weather",
+          "description": "Fog and wind roll in fast; pack a light windproof layer year‑round.",
+          "priority": "medium",
+          "tags": ["wind", "fog"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Seafood Freshness",
+          "description": "Daily catch sells out early at popular spots — go earlier for oysters/lobster rolls.",
+          "priority": "low",
+          "tags": ["food", "seafood"]
+        }
+      ]
+    },
+  
+    "Edmonton": {
+      "cultural": [
+        {
+          "title": "Festival City",
+          "description": "Check festival calendars — events can affect traffic and reservations.",
+          "priority": "low",
+          "tags": ["festivals", "planning"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Deep Winter Prep",
+          "description": "Extreme cold possible; cover skin, carry phone battery pack, and limit outdoor exposure.",
+          "priority": "high",
+          "tags": ["winter", "cold"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "River Valley Trails",
+          "description": "Share paths with cyclists/runners; keep right and use bells/voice when passing.",
+          "priority": "low",
+          "tags": ["trails", "etiquette"]
+        }
+      ]
+    },
+  
+    "Whistler": {
+      "cultural": [
+        {
+          "title": "Lift Etiquette",
+          "description": "Move promptly at load/unload, fill chairs fully, and follow staff guidance.",
+          "priority": "medium",
+          "tags": ["ski", "mountain"]
+        }
+      ],
+      "tipping": [
+        {
+          "title": "Ski Services",
+          "description": "Tip instructors and guides ~10–15% for lessons and tours.",
+          "priority": "low",
+          "tags": ["lessons", "guides"]
+        }
+      ],
+      "safety": [
+        {
+          "title": "Altitude & Exposure",
+          "description": "Sun is stronger at elevation; use SPF, lip balm, and hydrate.",
+          "priority": "medium",
+          "tags": ["sun", "altitude"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Après‑Ski",
+          "description": "Boots and ski wear are accepted in bars; check for ID — strict age verification.",
+          "priority": "low",
+          "tags": ["nightlife", "id"]
+        }
+      ]
+    },
+  
+    "Jasper": {
+      "cultural": [
+        {
+          "title": "Dark‑Sky Respect",
+          "description": "Minimize light at night to protect stargazing; use red lights where possible.",
+          "priority": "low",
+          "tags": ["dark-sky", "stargazing"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Wildlife on Roads",
+          "description": "Drive cautiously at dawn/dusk; animals commonly cross highways.",
+          "priority": "high",
+          "tags": ["driving", "wildlife"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Trail Conditions",
+          "description": "Check Parks bulletins for closures, ice, or avalanche advisories before hikes.",
+          "priority": "high",
+          "tags": ["parks", "advisories"]
+        }
+      ]
+    },
+  
+    "Niagara Region": {
+      "cultural": [
+        {
+          "title": "Tourist vs. Local Vibes",
+          "description": "Clifton Hill is flashy; Niagara‑on‑the‑Lake offers calmer wine‑country charm.",
+          "priority": "low",
+          "tags": ["neighborhoods", "vibe"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Mist & Slick Surfaces",
+          "description": "Paths near the Falls are wet; wear grippy shoes and protect electronics.",
+          "priority": "medium",
+          "tags": ["falls", "footwear"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Winery Tastings",
+          "description": "Booking tastings in advance is common on weekends/harvest season.",
+          "priority": "low",
+          "tags": ["wine", "reservations"]
+        }
+      ]
+    },
+  
+    "Yukon": {
+      "cultural": [
+        {
+          "title": "Midnight Sun & Short Nights",
+          "description": "In summer, bring sleep masks; some lodging lacks blackout curtains.",
+          "priority": "medium",
+          "tags": ["light", "sleep"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Remote Travel",
+          "description": "Carry spare fuel, warm layers, and satellite comms when leaving towns.",
+          "priority": "high",
+          "tags": ["driving", "remote"]
+        },
+        {
+          "title": "Aurora Cold",
+          "description": "For northern lights, dress in multiple insulated layers and warm boots.",
+          "priority": "high",
+          "tags": ["aurora", "winter"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Respect for Wildlife & Lands",
+          "description": "Pack out garbage, keep food secured, and follow local First Nations guidance.",
+          "priority": "high",
+          "tags": ["wildlife", "stewardship"]
+        }
+      ]
+    },
+  
+    "Gros Morne National Park": {
+      "cultural": [
+        {
+          "title": "Small‑Town Hospitality",
+          "description": "Greet locals and ask for trail/boat tips — communities are welcoming.",
+          "priority": "low",
+          "tags": ["locals", "etiquette"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Coastal Weather Swings",
+          "description": "Wind and rain shift quickly; waterproof layers and sturdy boots recommended.",
+          "priority": "high",
+          "tags": ["weather", "coast"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Boat Tour Timing",
+          "description": "Western Brook Pond boats sell out; reserve ahead in peak months.",
+          "priority": "medium",
+          "tags": ["reservations", "boats"]
+        }
+      ]
+    },
+  
+    "Churchill": {
+      "cultural": [
+        {
+          "title": "Seasonal Pop‑Up Town",
+          "description": "Expect limited dining hours and book tours well ahead in polar bear/beluga seasons.",
+          "priority": "medium",
+          "tags": ["seasonal", "tours"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Polar Bear Safety",
+          "description": "Do not walk outside town limits without a guide; heed local warnings and carry no food.",
+          "priority": "critical",
+          "tags": ["wildlife", "bears"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Layering & Gear",
+          "description": "Insulated boots, windproof outerwear, and hand warmers are essential in late fall/winter.",
+          "priority": "high",
+          "tags": ["gear", "winter"]
+        }
+      ]
+    },
+  
+    "Cape Breton Island": {
+      "cultural": [
+        {
+          "title": "Celtic Music",
+          "description": "Live trad sessions pop up in pubs; ask locals for nightly recommendations.",
+          "priority": "low",
+          "tags": ["music", "pubs"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Cabot Trail Driving",
+          "description": "Roads are winding with lookouts; pull over fully for photos and watch wildlife.",
+          "priority": "medium",
+          "tags": ["driving", "scenic"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Parks Canada Pass",
+          "description": "Some park areas require day passes — check entry signs.",
+          "priority": "medium",
+          "tags": ["parks", "fees"]
+        }
+      ]
+    },
+  
+    "Saguenay Region": {
+      "language": { "notes": "French is primary; simple French greetings help." },
+      "cultural": [
+        {
+          "title": "Fjord Rhythm",
+          "description": "Schedules can follow tides/conditions; confirm cruise times the day before.",
+          "priority": "medium",
+          "tags": ["fjords", "boats"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Cold Water",
+          "description": "Kayaking without proper gear is risky; use guides and wear PFDs.",
+          "priority": "high",
+          "tags": ["water", "kayak"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Wildlife Viewing",
+          "description": "Maintain distance from marine mammals; drones often restricted.",
+          "priority": "high",
+          "tags": ["wildlife", "marine"]
+        }
+      ]
+    },
+  
+    "Kingston": {
+      "cultural": [
+        {
+          "title": "Historic Sites",
+          "description": "Fort Henry and Kingston Pen tours can sell out on weekends; pre‑book.",
+          "priority": "low",
+          "tags": ["history", "reservations"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Waterfront Wind",
+          "description": "Lake winds can be strong — secure hats and loose items on boat tours.",
+          "priority": "low",
+          "tags": ["boats", "wind"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Thousand Islands",
+          "description": "Bring passport if your cruise crosses into U.S. waters (some routes do).",
+          "priority": "low",
+          "tags": ["border", "boats"]
+        }
+      ]
+    },
+  
+    "Trois-Rivières": {
+      "language": { "notes": "French first; 'Bonjour' then English if needed." },
+      "cultural": [
+        {
+          "title": "Poetry & Culture",
+          "description": "Check festival dates; town squares host readings and outdoor events.",
+          "priority": "low",
+          "tags": ["festivals", "culture"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Winter Streets",
+          "description": "Sidewalks can be compacted snow; wear traction.",
+          "priority": "medium",
+          "tags": ["winter", "walking"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Cafés & Boulangeries",
+          "description": "Self‑service water and counter ordering common; linger respectfully at tables.",
+          "priority": "low",
+          "tags": ["cafes", "etiquette"]
+        }
+      ]
+    },
+  
+    "Gatineau": {
+      "language": { "notes": "French is primary; bilingual service common near Ottawa." },
+      "cultural": [
+        {
+          "title": "Park Proximity",
+          "description": "Gatineau Park is minutes away — plan time for lakes and lookouts.",
+          "priority": "low",
+          "tags": ["parks", "outdoors"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Park Road Rules",
+          "description": "Seasonal closures and bike‑only hours occur — check NCC notices.",
+          "priority": "medium",
+          "tags": ["cycling", "closures"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Different Tax",
+          "description": "Quebec sales tax differs from Ontario; final totals vary when you cross the bridge.",
+          "priority": "low",
+          "tags": ["tax", "shopping"]
+        }
+      ]
+    },
+  
+    "Kitchener-Waterloo": {
+      "cultural": [
+        {
+          "title": "Oktoberfest Timing",
+          "description": "Events span multiple venues; tickets and table reservations go fast.",
+          "priority": "medium",
+          "tags": ["festivals", "beer"]
+        }
+      ],
+      "tipping": [],
+      "safety": [
+        {
+          "title": "Light Rail Crossings",
+          "description": "Mind ION tracks when driving and walking; look both ways for quiet trains.",
+          "priority": "low",
+          "tags": ["transit", "safety"]
+        }
+      ],
+      "customs": [
+        {
+          "title": "Farmers’ Markets",
+          "description": "St. Jacobs gets busy on weekends — arrive early for best selection.",
+          "priority": "low",
+          "tags": ["markets", "timing"]
+        }
+      ]
+    }
+  }
+  

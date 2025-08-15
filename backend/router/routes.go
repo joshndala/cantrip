@@ -58,6 +58,23 @@ func SetupRoutes(r *gin.Engine) {
 			tips.GET("/tipping/:destination", handlers.GetTippingGuideHandler)
 			tips.GET("/safety/:destination", handlers.GetSafetyTipsHandler)
 			tips.GET("/customs/:destination", handlers.GetLocalCustomsHandler)
+			tips.GET("/emergency/:destination", handlers.GetEmergencyInfoHandler)
+			tips.GET("/language/:destination", handlers.GetLanguageInfoHandler)
+		}
+
+		// Weather routes
+		weather := v1.Group("/weather")
+		{
+			weather.GET("/current", handlers.GetWeatherHandler)
+			weather.GET("/forecast", handlers.GetWeatherForecastHandler)
+			weather.GET("/forecast/with-notes", handlers.GetWeatherForecastWithNotesHandler)
+		}
+
+		// Places routes
+		places := v1.Group("/places")
+		{
+			places.GET("/events", handlers.GetEventsHandler)
+			places.GET("/suggestions", handlers.GenerateTripSuggestionsHandler)
 		}
 
 		// PDF routes
@@ -78,10 +95,13 @@ func SetupRoutes(r *gin.Engine) {
 			"message": "Welcome to CanTrip API",
 			"version": "1.0.0",
 			"endpoints": gin.H{
+				"chat":      "/api/v1/chat",
 				"explore":   "/api/v1/explore",
 				"itinerary": "/api/v1/itinerary",
 				"packing":   "/api/v1/packing",
 				"tips":      "/api/v1/tips",
+				"weather":   "/api/v1/weather",
+				"places":    "/api/v1/places",
 				"pdf":       "/api/v1/pdf",
 			},
 		})
