@@ -7,12 +7,13 @@ Defines the graph structure and nodes for travel planning
 import asyncio
 import json
 import logging
+import os
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
-from langchain_openai import ChatOpenAI
+from langchain_google_vertexai import ChatVertexAI
 from langchain_core.tools import tool
 
 # Import tools
@@ -29,12 +30,23 @@ events_tool = EventsTool()
 attractions_tool = AttractionsTool()
 planning_tool = PlanningTool()
 
+# Initialize LLM with Vertex AI
+def get_llm():
+    """Get Vertex AI LLM"""
+    project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+    location = os.getenv("VERTEX_AI_LOCATION", "us-central1")
+    model_name = os.getenv("VERTEX_AI_MODEL", "gemini-1.5-flash")
+    
+    return ChatVertexAI(
+        model_name=model_name,
+        project=project_id,
+        location=location,
+        temperature=0.7,
+        max_output_tokens=2048,
+    )
+
 # Initialize LLM
-llm = ChatOpenAI(
-    model="gpt-4-turbo-preview",
-    temperature=0.7,
-    api_key=os.getenv("OPENAI_API_KEY")
-)
+llm = get_llm()
 
 class TravelState:
     """State class for travel planning"""
