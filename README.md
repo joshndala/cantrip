@@ -49,7 +49,7 @@ cantrip/
 
 ### AI Agents (Python)
 - **Framework**: LangGraph + LangChain for multi-agent orchestration
-- **LLM**: Gemini (GCP) powering intelligent AI agents
+- **LLM**: Google Vertex AI (Gemini) powering intelligent AI agents
 - **API**: FastAPI for AI agent endpoints
 - **Evaluation**: Phoenix for AI agent performance monitoring
 - **Multi-Agent System**: Specialized agents for exploration, itinerary planning, and packing
@@ -114,7 +114,10 @@ cantrip/
 
 4. **Set Python environment variables**
    ```bash
-   export OPENAI_API_KEY="your_openai_api_key"
+   export GOOGLE_CLOUD_PROJECT="your_gcp_project"
+   export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"
+   export VERTEX_AI_LOCATION="us-central1"
+   export VERTEX_AI_MODEL="gemini-1.5-flash"
    export PHOENIX_ENABLED="true"  # Optional
    ```
 
@@ -236,8 +239,9 @@ GIN_MODE=release
 
 #### AI Agents
 ```bash
-# OpenAI
-OPENAI_API_KEY=your_key
+# Vertex AI
+VERTEX_AI_LOCATION=us-central1
+VERTEX_AI_MODEL=gemini-1.5-flash
 
 # Phoenix Evaluation
 PHOENIX_ENABLED=true

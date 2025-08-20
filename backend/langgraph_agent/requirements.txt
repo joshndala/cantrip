@@ -1,8 +1,12 @@
 # Core LangGraph and LangChain dependencies
 langgraph>=0.2.0
 langchain>=0.2.0
-langchain-openai>=0.1.0
+langchain-google-vertexai>=0.1.0
 langchain-core>=0.2.0
+
+# Google Cloud Vertex AI
+google-cloud-aiplatform>=1.40.0
+google-auth>=2.23.0
 
 # FastAPI and web framework
 fastapi>=0.110.0
