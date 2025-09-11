@@ -10,9 +10,14 @@ import logging
 import os
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-from phoenix.trace import trace
-from phoenix.trace.span import Span
-from phoenix.trace.attributes import Attributes
+# Phoenix imports for proper tracing
+import phoenix as px
+from phoenix.trace import TraceDataset, SpanEvaluations
+from phoenix.otel import register
+import pandas as pd
+import uuid
+from datetime import datetime
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +27,8 @@ class PhoenixAdapter:
     def __init__(self):
         self.trace_client = None
         self.evaluation_enabled = os.getenv("PHOENIX_ENABLED", "false").lower() == "true"
+        self.trace_dataset = None
+        self.evaluations = []
         
         if self.evaluation_enabled:
             self._initialize_phoenix()
@@ -30,13 +37,44 @@ class PhoenixAdapter:
         """Initialize Phoenix trace client"""
         try:
             # Initialize Phoenix trace client
-            # This would be configured based on your Phoenix setup
-            logger.info("Phoenix evaluation enabled")
+            phoenix_endpoint = os.getenv("PHOENIX_ENDPOINT", "http://localhost:6006")
+            
+            # Set up Phoenix configuration
+            os.environ["PHOENIX_ENDPOINT"] = phoenix_endpoint
+            os.environ["PHOENIX_PROJECT_NAME"] = "cantrip"
+            os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = phoenix_endpoint
+            
+            # Register OpenTelemetry with Phoenix
+            self.tracer_provider = register(
+                project_name="cantrip-travel-agent",
+                endpoint=f"{phoenix_endpoint}/v1/traces",
+                auto_instrument=True
+            )
+            
+            # Create initial trace dataset
+            self._create_trace_dataset()
+            
+            logger.info(f"Phoenix evaluation enabled - endpoint: {phoenix_endpoint}")
+            
         except Exception as e:
             logger.error(f"Failed to initialize Phoenix: {e}")
             self.evaluation_enabled = False
     
-    @trace
+    def _create_trace_dataset(self):
+        """Create a trace dataset for Phoenix"""
+        try:
+            # Create empty trace dataset with required columns
+            required_columns = [
+                'status_message', 'end_time', 'status_code', 'parent_id', 
+                'start_time', 'context.span_id', 'context.trace_id', 'name', 'span_kind'
+            ]
+            empty_df = pd.DataFrame(columns=required_columns)
+            self.trace_dataset = TraceDataset(empty_df, name="cantrip-travel-agent")
+            logger.info("Phoenix trace dataset created successfully")
+        except Exception as e:
+            logger.error(f"Failed to create trace dataset: {e}")
+            self.trace_dataset = None
+    
     async def evaluate_itinerary_generation(self, request: Dict, response: Dict, 
                                          execution_time: float) -> Dict:
         """Evaluate itinerary generation performance"""
@@ -44,25 +82,38 @@ class PhoenixAdapter:
             return {}
         
         try:
-            evaluation = {
-                "task": "itinerary_generation",
-                "request": request,
-                "response": response,
-                "execution_time": execution_time,
-                "timestamp": datetime.now().isoformat(),
-                "metrics": self._calculate_itinerary_metrics(request, response, execution_time)
-            }
+            # Create OpenTelemetry span
+            from opentelemetry import trace
+            tracer = trace.get_tracer(__name__)
             
-            # Log evaluation
-            self._log_evaluation(evaluation)
-            
-            return evaluation
+            with tracer.start_as_current_span("cantrip_itinerary_generation") as span:
+                # Add span attributes
+                span.set_attribute("task", "itinerary_generation")
+                span.set_attribute("city", request.get("city", "unknown"))
+                span.set_attribute("execution_time", execution_time)
+                span.set_attribute("success", response.get("success", False))
+                
+                evaluation = {
+                    "task": "itinerary_generation",
+                    "request": request,
+                    "response": response,
+                    "execution_time": execution_time,
+                    "timestamp": datetime.now().isoformat(),
+                    "metrics": self._calculate_itinerary_metrics(request, response, execution_time)
+                }
+                
+                # Log evaluation locally
+                self._log_evaluation(evaluation)
+                
+                # Send to Phoenix
+                await self._send_to_phoenix(evaluation)
+                
+                return evaluation
             
         except Exception as e:
             logger.error(f"Error evaluating itinerary generation: {e}")
             return {}
     
-    @trace
     async def evaluate_exploration(self, request: Dict, response: Dict, 
                                  execution_time: float) -> Dict:
         """Evaluate exploration performance"""
@@ -70,25 +121,39 @@ class PhoenixAdapter:
             return {}
         
         try:
-            evaluation = {
-                "task": "exploration",
-                "request": request,
-                "response": response,
-                "execution_time": execution_time,
-                "timestamp": datetime.now().isoformat(),
-                "metrics": self._calculate_exploration_metrics(request, response, execution_time)
-            }
+            # Create OpenTelemetry span
+            from opentelemetry import trace
+            tracer = trace.get_tracer(__name__)
             
-            # Log evaluation
-            self._log_evaluation(evaluation)
-            
-            return evaluation
+            with tracer.start_as_current_span("cantrip_exploration") as span:
+                # Add span attributes
+                span.set_attribute("task", "exploration")
+                span.set_attribute("city", request.get("city", "unknown"))
+                span.set_attribute("mood", request.get("mood", "unknown"))
+                span.set_attribute("execution_time", execution_time)
+                span.set_attribute("success", response.get("success", False))
+                
+                evaluation = {
+                    "task": "exploration",
+                    "request": request,
+                    "response": response,
+                    "execution_time": execution_time,
+                    "timestamp": datetime.now().isoformat(),
+                    "metrics": self._calculate_exploration_metrics(request, response, execution_time)
+                }
+                
+                # Log evaluation locally
+                self._log_evaluation(evaluation)
+                
+                # Send to Phoenix
+                await self._send_to_phoenix(evaluation)
+                
+                return evaluation
             
         except Exception as e:
             logger.error(f"Error evaluating exploration: {e}")
             return {}
     
-    @trace
     async def evaluate_packing_list_generation(self, request: Dict, response: Dict, 
                                              execution_time: float) -> Dict:
         """Evaluate packing list generation performance"""
@@ -105,8 +170,11 @@ class PhoenixAdapter:
                 "metrics": self._calculate_packing_metrics(request, response, execution_time)
             }
             
-            # Log evaluation
+            # Log evaluation locally
             self._log_evaluation(evaluation)
+            
+            # Send to Phoenix
+            await self._send_to_phoenix(evaluation)
             
             return evaluation
             
@@ -266,6 +334,61 @@ class PhoenixAdapter:
         except Exception as e:
             logger.error(f"Error logging evaluation: {e}")
     
+    async def _send_to_phoenix(self, evaluation: Dict):
+        """Send evaluation to Phoenix server"""
+        try:
+            # Store evaluation for later upload to Phoenix
+            self.evaluations.append(evaluation)
+            logger.info(f"Evaluation stored for Phoenix: {evaluation['task']}")
+            
+        except Exception as e:
+            logger.error(f"Error storing evaluation for Phoenix: {e}")
+    
+    async def upload_to_phoenix(self):
+        """Upload all evaluations to Phoenix server"""
+        try:
+            if not self.evaluations:
+                logger.info("No evaluations to upload to Phoenix")
+                return None
+            
+            # Create a simple trace dataset with proper span structure
+            span_data = []
+            for i, evaluation in enumerate(self.evaluations):
+                span_id = str(uuid.uuid4())
+                trace_id = str(uuid.uuid4())
+                timestamp = datetime.now()
+                
+                span_data.append({
+                    'context.span_id': span_id,
+                    'context.trace_id': trace_id,
+                    'name': f"cantrip_{evaluation['task']}",
+                    'span_kind': 'LLM',
+                    'start_time': timestamp.isoformat(),
+                    'end_time': timestamp.isoformat(),
+                    'status_code': 'OK' if evaluation['metrics'].get('success', False) else 'ERROR',
+                    'status_message': 'Success' if evaluation['metrics'].get('success', False) else 'Failed',
+                    'parent_id': None
+                })
+            
+            # Create DataFrame from span data
+            span_df = pd.DataFrame(span_data)
+            
+            # Create trace dataset
+            trace_dataset = TraceDataset(span_df, name="cantrip-evaluations")
+            
+            # Launch Phoenix app with the trace dataset
+            session = px.launch_app(trace=trace_dataset, run_in_thread=True)
+            
+            if session:
+                logger.info("Phoenix app launched successfully with evaluation data")
+                return session
+            else:
+                logger.warning("Failed to launch Phoenix app")
+                
+        except Exception as e:
+            logger.error(f"Error uploading to Phoenix: {e}")
+            return None
+    
     async def get_evaluation_summary(self, task: str = None, 
                                    start_date: str = None, 
                                    end_date: str = None) -> Dict:
@@ -377,6 +500,8 @@ class PhoenixAdapter:
     def enable_evaluation(self):
         """Enable evaluation"""
         self.evaluation_enabled = True
+        if not self.trace_dataset:
+            self._initialize_phoenix()
         logger.info("Evaluation enabled")
     
     def disable_evaluation(self):

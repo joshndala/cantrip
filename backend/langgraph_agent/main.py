@@ -9,7 +9,7 @@ import json
 import logging
 import os
 import sys
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
@@ -17,11 +17,12 @@ import uvicorn
 # Add the current directory to Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from graph import TravelPlanningGraph
+from graph_simple import SimpleTravelPlanningGraph
 from tools.recommend import RecommendationTool
 from tools.events import EventsTool
 from tools.attractions import AttractionsTool
 from tools.planner import PlanningTool
+from eval.phoenix_adapter import PhoenixAdapter
 
 # Configure logging
 logging.basicConfig(
@@ -38,7 +39,10 @@ app = FastAPI(
 )
 
 # Initialize the travel planning graph
-travel_graph = TravelPlanningGraph()
+travel_graph = SimpleTravelPlanningGraph()
+
+# Initialize Phoenix evaluation
+phoenix_adapter = PhoenixAdapter()
 
 class ItineraryRequest(BaseModel):
     city: str
@@ -81,6 +85,9 @@ async def health_check():
 @app.post("/generate-itinerary")
 async def generate_itinerary(request: ItineraryRequest):
     """Generate a complete travel itinerary"""
+    import time
+    start_time = time.time()
+    
     try:
         logger.info(f"Generating itinerary for {request.city}")
         
@@ -100,7 +107,7 @@ async def generate_itinerary(request: ItineraryRequest):
         # Run the graph
         result = await travel_graph.run(graph_input)
         
-        return {
+        response = {
             "success": True,
             "itinerary": result.get("itinerary", {}),
             "metadata": {
@@ -111,6 +118,16 @@ async def generate_itinerary(request: ItineraryRequest):
             }
         }
         
+        # Evaluate performance with Phoenix
+        execution_time = time.time() - start_time
+        await phoenix_adapter.evaluate_itinerary_generation(
+            request=graph_input,
+            response=response,
+            execution_time=execution_time
+        )
+        
+        return response
+        
     except Exception as e:
         logger.error(f"Error generating itinerary: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -118,6 +135,9 @@ async def generate_itinerary(request: ItineraryRequest):
 @app.post("/explore-destination")
 async def explore_destination(request: ExploreRequest):
     """Generate travel suggestions based on mood and interests"""
+    import time
+    start_time = time.time()
+    
     try:
         logger.info(f"Exploring {request.city} for mood: {request.mood}")
         
@@ -134,7 +154,7 @@ async def explore_destination(request: ExploreRequest):
         # Run the graph
         result = await travel_graph.run(graph_input)
         
-        return {
+        response = {
             "success": True,
             "suggestions": result.get("suggestions", []),
             "weather": result.get("weather", {}),
@@ -145,6 +165,16 @@ async def explore_destination(request: ExploreRequest):
                 "generated_at": result.get("generated_at", "")
             }
         }
+        
+        # Evaluate performance with Phoenix
+        execution_time = time.time() - start_time
+        await phoenix_adapter.evaluate_exploration(
+            request=graph_input,
+            response=response,
+            execution_time=execution_time
+        )
+        
+        return response
         
     except Exception as e:
         logger.error(f"Error exploring destination: {str(e)}")
@@ -184,6 +214,9 @@ async def chat_endpoint(request: ChatRequest):
 @app.post("/generate-packing-list")
 async def generate_packing_list(request: PackingRequest):
     """Generate a personalized packing list"""
+    import time
+    start_time = time.time()
+    
     try:
         logger.info(f"Generating packing list for {request.destination}")
         
@@ -203,7 +236,7 @@ async def generate_packing_list(request: PackingRequest):
         # Run the graph
         result = await travel_graph.run(graph_input)
         
-        return {
+        response = {
             "success": True,
             "packing_list": result.get("packing_list", {}),
             "weather": result.get("weather", {}),
@@ -213,6 +246,16 @@ async def generate_packing_list(request: PackingRequest):
                 "generated_at": result.get("generated_at", "")
             }
         }
+        
+        # Evaluate performance with Phoenix
+        execution_time = time.time() - start_time
+        await phoenix_adapter.evaluate_packing_list_generation(
+            request=graph_input,
+            response=response,
+            execution_time=execution_time
+        )
+        
+        return response
         
     except Exception as e:
         logger.error(f"Error generating packing list: {str(e)}")
@@ -270,6 +313,92 @@ async def get_attractions(city: str, category: str = "all"):
         
     except Exception as e:
         logger.error(f"Error getting attractions: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+# Phoenix Evaluation Endpoints
+@app.get("/evaluation/summary")
+async def get_evaluation_summary(task: str = None, start_date: str = None, end_date: str = None):
+    """Get evaluation summary for specified criteria"""
+    try:
+        summary = await phoenix_adapter.get_evaluation_summary(task, start_date, end_date)
+        return {
+            "success": True,
+            "summary": summary
+        }
+    except Exception as e:
+        logger.error(f"Error getting evaluation summary: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/evaluation/export")
+async def export_evaluations(output_file: str = "evaluations_export.json", 
+                           task: str = None, start_date: str = None, end_date: str = None):
+    """Export evaluations to a file"""
+    try:
+        await phoenix_adapter.export_evaluations(output_file, task, start_date, end_date)
+        return {
+            "success": True,
+            "message": f"Evaluations exported to {output_file}"
+        }
+    except Exception as e:
+        logger.error(f"Error exporting evaluations: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/evaluation/enable")
+async def enable_evaluation():
+    """Enable Phoenix evaluation"""
+    try:
+        phoenix_adapter.enable_evaluation()
+        return {
+            "success": True,
+            "message": "Evaluation enabled"
+        }
+    except Exception as e:
+        logger.error(f"Error enabling evaluation: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/evaluation/disable")
+async def disable_evaluation():
+    """Disable Phoenix evaluation"""
+    try:
+        phoenix_adapter.disable_evaluation()
+        return {
+            "success": True,
+            "message": "Evaluation disabled"
+        }
+    except Exception as e:
+        logger.error(f"Error disabling evaluation: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/evaluation/status")
+async def get_evaluation_status():
+    """Get evaluation status"""
+    try:
+        return {
+            "success": True,
+            "enabled": phoenix_adapter.is_evaluation_enabled()
+        }
+    except Exception as e:
+        logger.error(f"Error getting evaluation status: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/evaluation/upload")
+async def upload_evaluations_to_phoenix():
+    """Upload all evaluations to Phoenix server"""
+    try:
+        session = await phoenix_adapter.upload_to_phoenix()
+        if session:
+            return {
+                "success": True,
+                "message": "Evaluations uploaded to Phoenix successfully",
+                "phoenix_url": "http://localhost:6006"
+            }
+        else:
+            return {
+                "success": False,
+                "message": "Failed to upload evaluations to Phoenix"
+            }
+    except Exception as e:
+        logger.error(f"Error uploading evaluations to Phoenix: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":

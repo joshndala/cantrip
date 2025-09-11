@@ -8,9 +8,14 @@ import asyncio
 import json
 import logging
 import os
+import sys
 from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional
 import aiohttp
+
+# Add parent directory to path for model router import
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from model_router import model_router
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +24,7 @@ class PlanningTool:
     
     def __init__(self):
         self.api_keys = {
-            "google_maps": os.getenv("GOOGLE_MAPS_API_KEY"),
+            "google_maps": os.getenv("GOOGLE_API_KEY"),
             "uber": os.getenv("UBER_API_KEY"),
             "lyft": os.getenv("LYFT_API_KEY")
         }
@@ -56,13 +61,18 @@ class PlanningTool:
     
     async def create_itinerary(self, city: str, start_date: str, end_date: str, 
                              interests: List[str], budget: float, group_size: int,
-                             pace: str, accommodation: str, weather: Dict) -> Dict:
+                             pace: str, accommodation: str, weather: Dict, 
+                             date_span_days: int = None) -> Dict:
         """Create a complete travel itinerary"""
         logger.info(f"Creating itinerary for {city} from {start_date} to {end_date}")
         
         try:
             # Calculate trip duration
             duration = self._calculate_duration(start_date, end_date)
+            
+            # Use date_span_days if provided, otherwise calculate
+            if date_span_days is None:
+                date_span_days = duration
             
             # Get available activities and attractions
             activities = await self._get_available_activities(city, interests, budget)
@@ -80,8 +90,10 @@ class PlanningTool:
                 daily_plans.append(day_plan)
                 total_cost += day_plan.get("total_cost", 0)
             
-            # Create summary
-            summary = self._create_itinerary_summary(city, duration, total_cost, interests)
+            # Create summary using appropriate model
+            summary = await self._create_itinerary_summary_with_llm(
+                city, duration, total_cost, interests, date_span_days
+            )
             
             itinerary = {
                 "city": city,
@@ -402,9 +414,42 @@ class PlanningTool:
         
         return "; ".join(notes)
     
+    async def _create_itinerary_summary_with_llm(self, city: str, duration: int, 
+                                               total_cost: float, interests: List[str],
+                                               date_span_days: int) -> str:
+        """Create a summary of the itinerary using appropriate LLM"""
+        try:
+            # Get appropriate LLM for itinerary planning
+            itinerary_llm = model_router.get_model_for_agent(
+                "itinerary",
+                date_span_days=date_span_days
+            )
+            
+            prompt = f"""
+            Create a concise, engaging summary for a {duration}-day trip to {city}.
+            
+            Details:
+            - Duration: {duration} days
+            - Total cost: ${total_cost:.2f}
+            - Interests: {', '.join(interests) if interests else 'General exploration'}
+            
+            Make it exciting and informative, highlighting the key aspects of the trip.
+            Keep it under 100 words.
+            """
+            
+            from langchain_core.messages import HumanMessage
+            response = await itinerary_llm.ainvoke([HumanMessage(content=prompt)])
+            
+            return response.content.strip()
+            
+        except Exception as e:
+            logger.error(f"Error creating LLM summary: {e}")
+            # Fallback to simple summary
+            return self._create_itinerary_summary(city, duration, total_cost, interests)
+    
     def _create_itinerary_summary(self, city: str, duration: int, total_cost: float, 
                                 interests: List[str]) -> str:
-        """Create a summary of the itinerary"""
+        """Create a simple summary of the itinerary (fallback)"""
         summary = f"{duration}-day trip to {city}"
         
         if interests:

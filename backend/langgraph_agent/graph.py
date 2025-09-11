@@ -9,7 +9,7 @@ import json
 import logging
 import os
 from datetime import datetime, timedelta
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, TypedDict
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
@@ -22,6 +22,9 @@ from tools.events import EventsTool
 from tools.attractions import AttractionsTool
 from tools.planner import PlanningTool
 
+# Import model router
+from model_router import model_router
+
 logger = logging.getLogger(__name__)
 
 # Initialize tools
@@ -30,58 +33,48 @@ events_tool = EventsTool()
 attractions_tool = AttractionsTool()
 planning_tool = PlanningTool()
 
-# Initialize LLM with Vertex AI
+# Initialize LLM with model router
+def get_llm_for_agent(agent_type: str, **escalation_factors):
+    """Get appropriate LLM for agent type with escalation logic"""
+    return model_router.get_model_for_agent(agent_type, **escalation_factors)
+
+# Legacy function for backward compatibility
 def get_llm():
-    """Get Vertex AI LLM"""
-    project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
-    location = os.getenv("VERTEX_AI_LOCATION", "us-central1")
-    model_name = os.getenv("VERTEX_AI_MODEL", "gemini-1.5-flash")
-    
-    return ChatVertexAI(
-        model_name=model_name,
-        project=project_id,
-        location=location,
-        temperature=0.7,
-        max_output_tokens=2048,
-    )
+    """Get default LLM (Flash model)"""
+    return model_router.get_model_by_name(model_router.flash_model)
 
-# Initialize LLM
-llm = get_llm()
-
-class TravelState:
-    """State class for travel planning"""
-    def __init__(self):
-        self.messages: List = []
-        self.city: str = ""
-        self.start_date: str = ""
-        self.end_date: str = ""
-        self.interests: List[str] = []
-        self.budget: float = 1000.0
-        self.group_size: int = 1
-        self.pace: str = "moderate"
-        self.accommodation: str = "mid-range"
-        self.task: str = ""
-        self.weather: Dict = {}
-        self.events: List = []
-        self.attractions: List = []
-        self.suggestions: List = []
-        self.itinerary: Dict = {}
-        self.packing_list: Dict = {}
-        self.mood: str = ""
-        self.duration: int = 7
-        self.destination: str = ""
-        self.activities: List[str] = []
-        self.age_group: str = "adult"
-        self.special_needs: List[str] = []
-        # Chat-specific fields
-        self.message: str = ""
-        self.session_id: str = ""
-        self.context: Dict = {}
-        self.history: List = []
-        self.response: str = ""
-        self.intent: str = ""
-        self.confidence: float = 0.0
-        self.suggestions: List[str] = []
+class TravelState(TypedDict):
+    """State for travel planning"""
+    messages: List[Any]
+    city: str
+    start_date: str
+    end_date: str
+    interests: List[str]
+    budget: float
+    group_size: int
+    pace: str
+    accommodation: str
+    task: str
+    weather: Dict[str, Any]
+    events: List[Any]
+    attractions: List[Any]
+    suggestions: List[Any]
+    itinerary: Dict[str, Any]
+    packing_list: Dict[str, Any]
+    mood: str
+    duration: int
+    destination: str
+    activities: List[str]
+    age_group: str
+    special_needs: List[str]
+    # Chat-specific fields
+    message: str
+    session_id: str
+    context: Dict[str, Any]
+    history: List[Any]
+    response: str
+    intent: str
+    confidence: float
 
 def create_travel_graph() -> StateGraph:
     """Create the travel planning graph"""
@@ -141,20 +134,22 @@ async def analyze_request_node(state: TravelState) -> TravelState:
     logger.info("Analyzing request...")
     
     # Extract information from the request
-    if state.task == "explore_destination":
-        state.city = state.city
-        state.mood = state.mood
-        state.duration = state.duration
-    elif state.task == "generate_itinerary":
-        state.city = state.city
-        state.duration = calculate_duration(state.start_date, state.end_date)
-    elif state.task == "generate_packing_list":
-        state.destination = state.destination
-        state.duration = calculate_duration(state.start_date, state.end_date)
+    if state.get("task") == "explore_destination":
+        state["city"] = state.get("city", "")
+        state["mood"] = state.get("mood", "")
+        state["duration"] = state.get("duration", 7)
+    elif state.get("task") == "generate_itinerary":
+        state["city"] = state.get("city", "")
+        state["duration"] = calculate_duration(state.get("start_date", ""), state.get("end_date", ""))
+    elif state.get("task") == "generate_packing_list":
+        state["destination"] = state.get("destination", "")
+        state["duration"] = calculate_duration(state.get("start_date", ""), state.get("end_date", ""))
     
     # Add analysis message
-    state.messages.append(
-        AIMessage(content=f"Analyzed request for task: {state.task}")
+    if "messages" not in state:
+        state["messages"] = []
+    state["messages"].append(
+        AIMessage(content=f"Analyzed request for task: {state.get('task', 'unknown')}")
     )
     
     return state
@@ -164,10 +159,13 @@ async def process_chat_node(state: TravelState) -> TravelState:
     logger.info("Processing chat message...")
     
     # Extract message and context
-    message = getattr(state, 'message', '')
-    session_id = getattr(state, 'session_id', '')
-    context = getattr(state, 'context', {})
-    history = getattr(state, 'history', [])
+    message = state.get('message', '')
+    session_id = state.get('session_id', '')
+    context = state.get('context', {})
+    history = state.get('history', [])
+    
+    # Get appropriate LLM for chat processing
+    chat_llm = get_llm_for_agent("explore", prompt_text=message)
     
     # Analyze intent using LLM
     intent_prompt = f"""
@@ -189,7 +187,7 @@ async def process_chat_node(state: TravelState) -> TravelState:
     """
     
     try:
-        intent_response = llm.invoke([HumanMessage(content=intent_prompt)])
+        intent_response = chat_llm.invoke([HumanMessage(content=intent_prompt)])
         intent = intent_response.content.strip().lower()
     except Exception as e:
         logger.error(f"Error analyzing intent: {e}")
@@ -216,16 +214,16 @@ async def process_chat_node(state: TravelState) -> TravelState:
         suggestions = ["Tell me about popular Canadian destinations", "Help me plan a trip to Toronto", "What's the weather like in Vancouver?"]
     
     # Update state
-    state.intent = intent
-    state.response = response
-    state.suggestions = suggestions
-    state.confidence = 0.8
+    state["intent"] = intent
+    state["response"] = response
+    state["suggestions"] = suggestions
+    state["confidence"] = 0.8
     
     return state
 
 async def get_weather_node(state: TravelState) -> TravelState:
     """Get weather information for the destination"""
-    logger.info(f"Getting weather for {state.city}")
+    logger.info(f"Getting weather for {state.get('city', 'unknown')}")
     
     try:
         # This would integrate with a weather API
@@ -237,14 +235,16 @@ async def get_weather_node(state: TravelState) -> TravelState:
             "wind_speed": 10
         }
         
-        state.weather = weather_data
-        state.messages.append(
-            AIMessage(content=f"Weather data retrieved for {state.city}")
+        state["weather"] = weather_data
+        if "messages" not in state:
+            state["messages"] = []
+        state["messages"].append(
+            AIMessage(content=f"Weather data retrieved for {state.get('city', 'unknown')}")
         )
         
     except Exception as e:
         logger.error(f"Error getting weather: {e}")
-        state.weather = {}
+        state["weather"] = {}
     
     return state
 
@@ -287,7 +287,7 @@ async def generate_suggestions_node(state: TravelState) -> TravelState:
     logger.info(f"Generating suggestions for {state.city} with mood: {state.mood}")
     
     try:
-        # Use LLM to generate suggestions
+        # Build prompt
         prompt = f"""
         Generate travel suggestions for {state.city} based on:
         - Mood: {state.mood}
@@ -301,7 +301,16 @@ async def generate_suggestions_node(state: TravelState) -> TravelState:
         Provide 5-7 detailed suggestions with activities, estimated costs, and timing.
         """
         
-        response = await llm.ainvoke([HumanMessage(content=prompt)])
+        # Get appropriate LLM with escalation factors
+        suggestions_llm = get_llm_for_agent(
+            "explore",
+            prompt_text=prompt,
+            cities=1,  # Single city for explore
+            date_span_days=state.duration,
+            tool_chain_length=3  # weather + events + attractions
+        )
+        
+        response = await suggestions_llm.ainvoke([HumanMessage(content=prompt)])
         
         # Parse suggestions (this would be more sophisticated in practice)
         suggestions = parse_suggestions(response.content)
@@ -322,7 +331,10 @@ async def plan_itinerary_node(state: TravelState) -> TravelState:
     logger.info(f"Planning itinerary for {state.city}")
     
     try:
-        # Use planning tool to create itinerary
+        # Calculate date span for escalation logic
+        date_span_days = calculate_duration(state.start_date, state.end_date)
+        
+        # Use planning tool to create itinerary with appropriate model
         itinerary = await planning_tool.create_itinerary(
             city=state.city,
             start_date=state.start_date,
@@ -332,7 +344,8 @@ async def plan_itinerary_node(state: TravelState) -> TravelState:
             group_size=state.group_size,
             pace=state.pace,
             accommodation=state.accommodation,
-            weather=state.weather
+            weather=state.weather,
+            date_span_days=date_span_days  # Pass for escalation logic
         )
         
         state.itinerary = itinerary
@@ -351,7 +364,7 @@ async def generate_packing_list_node(state: TravelState) -> TravelState:
     logger.info(f"Generating packing list for {state.destination}")
     
     try:
-        # Use LLM to generate packing list
+        # Build prompt
         prompt = f"""
         Generate a comprehensive packing list for {state.destination} based on:
         - Duration: {state.duration} days
@@ -364,7 +377,14 @@ async def generate_packing_list_node(state: TravelState) -> TravelState:
         Organize by categories (clothing, toiletries, electronics, etc.) and include quantities.
         """
         
-        response = await llm.ainvoke([HumanMessage(content=prompt)])
+        # Get appropriate LLM for packing list generation
+        packing_llm = get_llm_for_agent(
+            "packing",
+            prompt_text=prompt,
+            date_span_days=state.duration
+        )
+        
+        response = await packing_llm.ainvoke([HumanMessage(content=prompt)])
         
         # Parse packing list (this would be more sophisticated in practice)
         packing_list = parse_packing_list(response.content)

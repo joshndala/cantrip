@@ -13,6 +13,11 @@ CanTrip is a comprehensive travel planning platform that leverages **AI agents**
 - **Conversational AI Agents**: Natural language chat interface powered by AI agents for Canadian travel planning
 
 ### Technical Features
+- **Intelligent Model Routing**: Automatically selects optimal Gemini models (Flash/Pro) based on task complexity
+- **Cost Optimization**: Uses faster Flash models by default, escalates to Pro only when needed
+- **Configurable Models**: Easy switching between Gemini 1.5/2.x families via environment variables
+
+### Technical Features
 - **AI Agents with LangGraph**: Advanced AI agents for intelligent travel planning using LangGraph framework
 - **Multi-Agent Architecture**: Specialized AI agents for different travel planning tasks (exploration, itinerary, packing)
 - **Multi-API Integration**: AI agents integrate with weather, events, attractions, and recommendations APIs
@@ -49,7 +54,8 @@ cantrip/
 
 ### AI Agents (Python)
 - **Framework**: LangGraph + LangChain for multi-agent orchestration
-- **LLM**: Google Vertex AI (Gemini) powering intelligent AI agents
+- **LLM**: Google Vertex AI (Gemini) with intelligent model routing
+- **Model Router**: Automatically escalates from Flash to Pro models based on complexity
 - **API**: FastAPI for AI agent endpoints
 - **Evaluation**: Phoenix for AI agent performance monitoring
 - **Multi-Agent System**: Specialized agents for exploration, itinerary planning, and packing
@@ -67,6 +73,7 @@ cantrip/
 - Go 1.25+
 - Python 3.9+
 - Git
+- Google Cloud CLI (`gcloud`) with application-default authentication
 
 ### Backend Setup
 
@@ -81,12 +88,16 @@ cantrip/
    go mod download
    ```
 
-3. **Set environment variables**
+3. **Authenticate with Google Cloud**
+   ```bash
+   gcloud auth application-default login
+   ```
+
+4. **Set environment variables**
    ```bash
    export OPENWEATHER_API_KEY="your_openweather_api_key"
    export GEOAPIFY_API_KEY="your_geoapify_api_key"
    export GOOGLE_CLOUD_PROJECT="your_gcp_project"
-   export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"
    ```
 
 4. **Run the server**
@@ -112,16 +123,22 @@ cantrip/
    pip install -r requirements.txt
    ```
 
-4. **Set Python environment variables**
+4. **Authenticate with Google Cloud**
+   ```bash
+   gcloud auth application-default login
+   ```
+
+5. **Set Python environment variables**
    ```bash
    export GOOGLE_CLOUD_PROJECT="your_gcp_project"
-   export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"
    export VERTEX_AI_LOCATION="us-central1"
-   export VERTEX_AI_MODEL="gemini-1.5-flash"
+   export GEMINI_FLASH_MODEL="gemini-1.5-flash"
+   export GEMINI_PRO_MODEL="gemini-1.5-pro"
+   export GEMINI_FLASH_LITE_MODEL="gemini-1.5-flash"
    export PHOENIX_ENABLED="true"  # Optional
    ```
 
-5. **Run the agent**
+6. **Run the agent**
    ```bash
    python main.py
    ```
@@ -230,7 +247,10 @@ EVENTBRITE_API_KEY=your_key
 
 # Google Cloud
 GOOGLE_CLOUD_PROJECT=your_project
-GOOGLE_APPLICATION_CREDENTIALS=path/to/credentials.json
+
+# Google APIs (Optional - for Maps/Places integration)
+GOOGLE_API_KEY=your_key
+```
 
 # Server
 PORT=8080
@@ -239,13 +259,17 @@ GIN_MODE=release
 
 #### AI Agents
 ```bash
-# Vertex AI
+# Vertex AI Configuration
 VERTEX_AI_LOCATION=us-central1
-VERTEX_AI_MODEL=gemini-1.5-flash
 
-# Phoenix Evaluation
+# Model Configuration (configurable via env)
+GEMINI_FLASH_MODEL=gemini-1.5-flash
+GEMINI_PRO_MODEL=gemini-1.5-pro
+GEMINI_FLASH_LITE_MODEL=gemini-1.5-flash
+
+# Phoenix Evaluation (Full Integration)
 PHOENIX_ENABLED=true
-PHOENIX_ENDPOINT=your_phoenix_endpoint
+PHOENIX_ENDPOINT=http://localhost:6006
 
 # AI Agents
 AGENT_PORT=8001
@@ -266,6 +290,12 @@ cd backend/langgraph_agent
 pytest tests/
 ```
 
+### Model Router Tests
+```bash
+cd backend/langgraph_agent
+python test_model_router.py
+```
+
 ### Integration Tests
 ```bash
 # Test full flow
@@ -276,16 +306,30 @@ curl -X POST http://localhost:8080/api/v1/explore \
 
 ## 📊 Monitoring & Evaluation
 
-### Phoenix Evaluation
-The AI agents include Phoenix integration for performance monitoring:
+### Phoenix Evaluation (Full Integration)
+The AI agents include full Phoenix integration for advanced performance monitoring:
 
 ```bash
 # Enable evaluation
 export PHOENIX_ENABLED=true
+export PHOENIX_ENDPOINT=http://localhost:6006
 
-# View evaluation summary
+# Access Phoenix UI
+# Open http://localhost:6006 in your browser
+
+# API endpoints (still available)
 curl http://localhost:8001/evaluation/summary
+curl http://localhost:8001/evaluation/status
+curl -X POST http://localhost:8001/evaluation/enable
+curl -X POST http://localhost:8001/evaluation/disable
 ```
+
+**Phoenix UI Features:**
+- 📊 **Real-time trace visualization**
+- 🔍 **Advanced debugging tools**
+- 📈 **Performance analytics**
+- 🎯 **Model comparison**
+- 🐛 **Error tracking and analysis**
 
 ### Logs
 - Backend logs: Standard Go logging
@@ -295,6 +339,44 @@ curl http://localhost:8001/evaluation/summary
 ## 🚀 Deployment
 
 ### Docker Deployment
+
+1. **Set up environment variables**
+   ```bash
+   # Copy example and fill in your values
+   cp .env.example .env
+   # Edit .env with your API keys and configuration
+   ```
+
+2. **Authenticate with Google Cloud**
+   ```bash
+   gcloud auth application-default login
+   ```
+
+3. **Build and run with Docker Compose**
+   ```bash
+   # Build and start all services
+   docker-compose up --build
+   
+   # Or run in background
+   docker-compose up -d --build
+   
+   # View logs
+   docker-compose logs -f
+   ```
+
+4. **Access services**
+   - Backend API: http://localhost:8080
+   - AI Agents: http://localhost:8001
+   - Phoenix UI: http://localhost:6006
+   - Redis: localhost:6379 (optional)
+   - PostgreSQL: localhost:5432 (optional)
+
+5. **Stop services**
+   ```bash
+   docker-compose down
+   ```
+
+### Manual Docker Build (Alternative)
 
 1. **Build images**
    ```bash
@@ -308,7 +390,7 @@ curl http://localhost:8001/evaluation/summary
 2. **Run containers**
    ```bash
    docker run -p 8080:8080 cantrip-backend
-   docker run -p 8001:8001 cantrip-ai-agents
+   docker run -p 8001:8001 cantrip-agent
    ```
 ```
 

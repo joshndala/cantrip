@@ -20,7 +20,7 @@ class AttractionsTool:
         self.api_keys = {
             "geoapify": os.getenv("GEOAPIFY_API_KEY"),
             "tripadvisor": os.getenv("TRIPADVISOR_API_KEY"),
-            "google_places": os.getenv("GOOGLE_PLACES_API_KEY")
+            "google_places": os.getenv("GOOGLE_API_KEY")
         }
         
         # Load city metadata for attractions
