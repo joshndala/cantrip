@@ -67,6 +67,25 @@ func GetEvents(city, mood string, interests []string) ([]Event, error) {
 	return getEventsFromSampleData(city, mood, interests)
 }
 
+// FilterEventsByDate filters events by a specific date
+func FilterEventsByDate(events []Event, targetDate string) []Event {
+	var filteredEvents []Event
+	
+	for _, event := range events {
+		// Check if event is on the target date or within a range
+		if event.Date == targetDate {
+			filteredEvents = append(filteredEvents, event)
+		} else if event.EndDate != "" {
+			// Check if target date falls within the event's date range
+			if targetDate >= event.Date && targetDate <= event.EndDate {
+				filteredEvents = append(filteredEvents, event)
+			}
+		}
+	}
+	
+	return filteredEvents
+}
+
 // getEventsFromAPI attempts to get events from real event APIs
 func getEventsFromAPI(city, mood string, interests []string) ([]Event, error) {
 	// Check if API keys are configured

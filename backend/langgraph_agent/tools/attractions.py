@@ -42,11 +42,17 @@ class AttractionsTool:
         try:
             attractions = []
             
-            # Get attractions from city metadata
-            city_info = self._get_city_info(city)
-            if city_info:
-                metadata_attractions = self._get_metadata_attractions(city_info)
-                attractions.extend(metadata_attractions)
+            # First try to get attractions from Go backend
+            backend_attractions = await self._get_backend_attractions(city, category)
+            if backend_attractions:
+                attractions.extend(backend_attractions)
+            
+            # Fallback to city metadata if no backend data
+            if not attractions:
+                city_info = self._get_city_info(city)
+                if city_info:
+                    metadata_attractions = self._get_metadata_attractions(city_info)
+                    attractions.extend(metadata_attractions)
             
             # Get attractions from APIs
             api_attractions = await self._get_api_attractions(city, category)
@@ -61,6 +67,52 @@ class AttractionsTool:
         except Exception as e:
             logger.error(f"Error getting attractions: {e}")
             return []
+    
+    async def _get_backend_attractions(self, city: str, category: str) -> List[Dict]:
+        """Get attractions from Go backend"""
+        try:
+            backend_url = os.getenv("BACKEND_URL", "http://cantrip-backend:8080")
+            
+            async with aiohttp.ClientSession() as session:
+                url = f"{backend_url}/api/v1/places/suggestions"
+                params = {
+                    "city": city,
+                    "mood": "cultural",
+                    "interests": [category] if category != "all" else ["culture", "attractions"],
+                    "budget": 1000,
+                    "duration": 3
+                }
+                
+                async with session.get(url, params=params) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        suggestions = data.get("suggestions", [])
+                        
+                        # Convert suggestions to attractions format
+                        attractions = []
+                        for suggestion in suggestions:
+                            attraction = {
+                                "name": suggestion.get("title", ""),
+                                "description": suggestion.get("description", ""),
+                                "category": category,
+                                "type": "attraction",
+                                "location": city,
+                                "rating": 4.0,
+                                "tags": suggestion.get("tags", []),
+                                "activities": suggestion.get("activities", []),
+                                "estimated_cost": suggestion.get("estimated_cost", 0)
+                            }
+                            attractions.append(attraction)
+                        
+                        logger.info(f"Retrieved {len(attractions)} attractions from backend")
+                        return attractions
+                    else:
+                        logger.error(f"Backend attractions API returned status {response.status}")
+                        
+        except Exception as e:
+            logger.error(f"Error calling backend attractions API: {e}")
+        
+        return []
     
     def _get_city_info(self, city: str) -> Optional[Dict]:
         """Get city information from metadata"""

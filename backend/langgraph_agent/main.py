@@ -11,13 +11,15 @@ import os
 import sys
 from typing import Dict, Any, List, Optional
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 import uvicorn
+import asyncio
 
 # Add the current directory to Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from graph_simple import SimpleTravelPlanningGraph
+from graph_enhanced import EnhancedTravelPlanningGraph
 from tools.recommend import RecommendationTool
 from tools.events import EventsTool
 from tools.attractions import AttractionsTool
@@ -38,8 +40,8 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Initialize the travel planning graph
-travel_graph = SimpleTravelPlanningGraph()
+# Initialize the enhanced travel planning graph
+travel_graph = EnhancedTravelPlanningGraph()
 
 # Initialize Phoenix evaluation
 phoenix_adapter = PhoenixAdapter()
@@ -210,6 +212,70 @@ async def chat_endpoint(request: ChatRequest):
     except Exception as e:
         logger.error(f"Error processing chat message: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/chat/stream")
+async def chat_stream_endpoint(request: ChatRequest):
+    """Handle streaming conversational chat with the travel agent"""
+    async def generate_stream():
+        try:
+            logger.info(f"Processing streaming chat message for session {request.session_id}")
+            
+            # Prepare the input for the graph
+            graph_input = {
+                "message": request.message,
+                "session_id": request.session_id,
+                "context": request.context,
+                "history": request.history,
+                "task": "chat"
+            }
+            
+            # Run the graph
+            result = await travel_graph.run(graph_input)
+            response_text = result.get("response", "I'm here to help with your travel planning!")
+            
+            # Stream the response word by word
+            words = response_text.split()
+            for i, word in enumerate(words):
+                # Create a chunk with the word and metadata
+                chunk = {
+                    "type": "token",
+                    "content": word + (" " if i < len(words) - 1 else ""),
+                    "session_id": request.session_id,
+                    "intent": result.get("intent", "general"),
+                    "confidence": result.get("confidence", 0.8),
+                    "timestamp": result.get("timestamp")
+                }
+                
+                yield f"data: {json.dumps(chunk)}\n\n"
+                await asyncio.sleep(0.05)  # Small delay to simulate streaming
+            
+            # Send final metadata
+            final_chunk = {
+                "type": "done",
+                "suggestions": result.get("suggestions", []),
+                "data": result.get("data", {}),
+                "session_id": request.session_id
+            }
+            yield f"data: {json.dumps(final_chunk)}\n\n"
+            
+        except Exception as e:
+            logger.error(f"Error processing streaming chat message: {str(e)}")
+            error_chunk = {
+                "type": "error",
+                "content": "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.",
+                "session_id": request.session_id
+            }
+            yield f"data: {json.dumps(error_chunk)}\n\n"
+    
+    return StreamingResponse(
+        generate_stream(),
+        media_type="text/plain",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Content-Type": "text/event-stream"
+        }
+    )
 
 @app.post("/generate-packing-list")
 async def generate_packing_list(request: PackingRequest):

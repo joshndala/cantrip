@@ -1,4 +1,20 @@
 services:
+  # Next.js Frontend
+  cantrip-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://cantrip-backend:8080
+    depends_on:
+      - cantrip-backend
+    networks:
+      - cantrip-network
+    restart: unless-stopped
+
   # Go Backend API
   cantrip-backend:
     build:
@@ -9,6 +25,7 @@ services:
     environment:
       - GIN_MODE=release
       - PORT=8080
+      - DOCKER_ENV=true
       - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
       - GEOAPIFY_API_KEY=${GEOAPIFY_API_KEY}
       - TRIPADVISOR_API_KEY=${TRIPADVISOR_API_KEY}

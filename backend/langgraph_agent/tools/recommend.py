@@ -42,10 +42,16 @@ class RecommendationTool:
         try:
             recommendations = []
             
-            # Get city info from metadata
-            city_info = self._get_city_info(city)
-            if not city_info:
-                return []
+            # First try to get recommendations from Go backend
+            backend_recommendations = await self._get_backend_recommendations(city, category)
+            if backend_recommendations:
+                recommendations.extend(backend_recommendations)
+            
+            # Fallback to city metadata if no backend data
+            if not recommendations:
+                city_info = self._get_city_info(city)
+                if not city_info:
+                    return []
             
             # Get recommendations based on category
             if category == "all" or category == "attractions":
@@ -73,6 +79,53 @@ class RecommendationTool:
         except Exception as e:
             logger.error(f"Error getting recommendations: {e}")
             return []
+    
+    async def _get_backend_recommendations(self, city: str, category: str) -> List[Dict]:
+        """Get recommendations from Go backend"""
+        try:
+            backend_url = os.getenv("BACKEND_URL", "http://cantrip-backend:8080")
+            
+            async with aiohttp.ClientSession() as session:
+                url = f"{backend_url}/api/v1/places/suggestions"
+                params = {
+                    "city": city,
+                    "mood": "cultural",
+                    "interests": [category] if category != "all" else ["culture", "attractions", "food"],
+                    "budget": 1000,
+                    "duration": 3
+                }
+                
+                async with session.get(url, params=params) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        suggestions = data.get("suggestions", [])
+                        
+                        # Convert suggestions to recommendations format
+                        recommendations = []
+                        for suggestion in suggestions:
+                            recommendation = {
+                                "name": suggestion.get("title", ""),
+                                "description": suggestion.get("description", ""),
+                                "category": category,
+                                "type": "recommendation",
+                                "location": city,
+                                "rating": 4.0,
+                                "tags": suggestion.get("tags", []),
+                                "activities": suggestion.get("activities", []),
+                                "estimated_cost": suggestion.get("estimated_cost", 0),
+                                "duration": suggestion.get("duration", 1)
+                            }
+                            recommendations.append(recommendation)
+                        
+                        logger.info(f"Retrieved {len(recommendations)} recommendations from backend")
+                        return recommendations
+                    else:
+                        logger.error(f"Backend recommendations API returned status {response.status}")
+                        
+        except Exception as e:
+            logger.error(f"Error calling backend recommendations API: {e}")
+        
+        return []
     
     def _get_city_info(self, city: str) -> Optional[Dict]:
         """Get city information from metadata"""

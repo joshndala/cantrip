@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -43,6 +44,38 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, response)
+}
+
+// ChatStreamHandler handles streaming conversational interactions
+func ChatStreamHandler(c *gin.Context) {
+	var req ChatRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Get or create conversation session
+	session, err := services.GetOrCreateSession(req.SessionID, req.UserID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to manage session"})
+		return
+	}
+
+	// Set headers for Server-Sent Events
+	c.Header("Content-Type", "text/event-stream")
+	c.Header("Cache-Control", "no-cache")
+	c.Header("Connection", "keep-alive")
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Headers", "Cache-Control")
+
+	// Call streaming LangGraph agent
+	err = services.ProcessChatMessageStream(req.Message, session, c)
+	if err != nil {
+		// Send error as SSE
+		fmt.Fprintf(c.Writer, "data: %s\n\n", `{"type":"error","content":"Failed to process message"}`)
+		c.Writer.Flush()
+		return
+	}
 }
 
 // GetConversationHistory returns the conversation history for a session

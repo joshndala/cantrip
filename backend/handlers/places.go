@@ -13,6 +13,7 @@ func GetEventsHandler(c *gin.Context) {
 	city := c.Query("city")
 	mood := c.Query("mood")
 	interests := c.QueryArray("interests")
+	date := c.Query("date")
 
 	if city == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "city parameter is required"})
@@ -23,6 +24,16 @@ func GetEventsHandler(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get events: " + err.Error()})
 		return
+	}
+
+	// Filter events by date if provided
+	if date != "" {
+		events = services.FilterEventsByDate(events, date)
+	}
+
+	// Ensure we return an empty array instead of null
+	if events == nil {
+		events = []services.Event{}
 	}
 
 	c.JSON(http.StatusOK, events)

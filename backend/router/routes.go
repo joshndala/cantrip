@@ -18,7 +18,9 @@ func SetupRoutes(r *gin.Engine) {
 		// Chat routes
 		chat := v1.Group("/chat")
 		{
+			chat.POST("", handlers.ChatHandler)
 			chat.POST("/", handlers.ChatHandler)
+			chat.POST("/stream", handlers.ChatStreamHandler)
 			chat.GET("/history/:session_id", handlers.GetConversationHistory)
 			chat.DELETE("/history/:session_id", handlers.ClearConversation)
 			chat.GET("/suggestions/:session_id", handlers.GetConversationSuggestions)

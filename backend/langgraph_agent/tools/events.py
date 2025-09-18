@@ -146,7 +146,14 @@ class EventsTool:
         logger.info(f"Getting events for {city}, date: {date}, category: {category}")
         
         try:
-            # Get events from sample data
+            # First try to get events from APIs (prioritize real data)
+            api_events = await self._get_api_events(city, date, category)
+            
+            # If we got API events, use them (they're more current)
+            if api_events:
+                return api_events
+            
+            # Fallback to sample data if no API events available
             city_events = self.sample_events.get(city.lower(), [])
             
             # Filter by date if provided
@@ -156,10 +163,6 @@ class EventsTool:
             # Filter by category if provided
             if category:
                 city_events = self._filter_events_by_category(city_events, category)
-            
-            # Add events from APIs (in production)
-            api_events = await self._get_api_events(city, date, category)
-            city_events.extend(api_events)
             
             return city_events
             
@@ -216,18 +219,71 @@ class EventsTool:
         return filtered_events
     
     async def _get_api_events(self, city: str, date: Optional[str], category: Optional[str]) -> List[Dict]:
-        """Get events from external APIs"""
+        """Get events from external APIs via Go backend"""
         events = []
         
-        # Ticketmaster API
-        if self.api_keys["ticketmaster"]:
-            ticketmaster_events = await self._get_ticketmaster_events(city, date, category)
-            events.extend(ticketmaster_events)
-        
-        # Eventbrite API
-        if self.api_keys["eventbrite"]:
-            eventbrite_events = await self._get_eventbrite_events(city, date, category)
-            events.extend(eventbrite_events)
+        try:
+            # Call the Go backend events API
+            backend_url = os.getenv("BACKEND_URL", "http://cantrip-backend:8080")
+            
+            async with aiohttp.ClientSession() as session:
+                url = f"{backend_url}/api/v1/places/events"
+                params = {"city": city}
+                
+                # Add date if provided
+                if date:
+                    params["date"] = date
+                
+                # Add category as interests if provided
+                if category:
+                    params["interests"] = [category]
+                
+                # Add mood based on category (default to excited for general events)
+                if category == "music":
+                    params["mood"] = "excited"
+                elif category == "sports":
+                    params["mood"] = "excited"
+                elif category == "arts":
+                    params["mood"] = "relaxed"
+                elif category == "theater":
+                    params["mood"] = "relaxed"
+                else:
+                    # Default mood for general events or no category
+                    params["mood"] = "excited"
+                
+                async with session.get(url, params=params) as response:
+                    if response.status == 200:
+                        backend_events = await response.json()
+                        
+                        # Handle case where backend returns null instead of empty array
+                        if backend_events is None:
+                            backend_events = []
+                        
+                        # Convert backend format to our format
+                        for event in backend_events:
+                            converted_event = {
+                                "name": event.get("name", ""),
+                                "type": event.get("category", "general"),
+                                "category": event.get("category", "general"),
+                                "description": event.get("description", ""),
+                                "date": event.get("date", ""),
+                                "end_date": event.get("end_date", ""),
+                                "time": event.get("time", ""),
+                                "location": event.get("location", ""),
+                                "price_range": f"${event.get('price', 0):.0f}" if event.get('price', 0) > 0 else "Free",
+                                "tickets_available": event.get("tickets_available", False),
+                                "booking_url": event.get("booking_url", ""),
+                                "rating": event.get("rating", 4.0),
+                                "tags": event.get("tags", [])
+                            }
+                            events.append(converted_event)
+                        
+                        logger.info(f"Retrieved {len(events)} events from backend API")
+                    else:
+                        logger.error(f"Backend events API returned status {response.status}")
+                        
+        except Exception as e:
+            logger.error(f"Error calling backend events API: {e}")
         
         return events
     
